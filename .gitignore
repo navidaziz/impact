@@ -2,7 +2,6 @@
 */logs/log-*.php
 !*/logs/index.html
 */cache/*
-!system/cache/*
 !*/cache/index.html
 !*/cache/.htaccess
 
@@ -16,3 +15,7 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
+
+/application/config/config.php
+/application/config/database.php
+/assests/images/*

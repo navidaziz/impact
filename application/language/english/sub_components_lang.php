@@ -1,0 +1,26 @@
+<?php
+$lang['sub_component_name'] = 'Sub Component Name';
+$lang['sub_component_detail'] = 'Sub Component Detail';
+$lang['target_unit'] = 'Target Unit';
+$lang['target'] = 'Target';
+$lang['material_cost'] = 'Material Cost';
+$lang['labor_cost'] = 'Labor Cost';
+$lang['farmer_share'] = 'Farmer Share';
+$lang['total_cost'] = 'Total Cost';
+$lang['project_name'] = 'Project Name';
+$lang['component_name'] = 'Component Name';
+$lang['sub_component_name'] = 'Sub Component Name';
+$lang['sub_component_detail'] = 'Sub Component Detail';
+$lang['target_unit'] = 'Target Unit';
+$lang['target'] = 'Target';
+$lang['material_cost'] = 'Material Cost';
+$lang['labor_cost'] = 'Labor Cost';
+$lang['farmer_share'] = 'Farmer Share';
+$lang['total_cost'] = 'Total Cost';
+$lang['project_name'] = 'Project Name';
+$lang['component_name'] = 'Component Name';
+$lang['Sub Components'] = 'Project Components';
+$lang['Sub Component Details'] = 'Sub Component Details';
+$lang['Trashed Sub Components'] = 'Trashed Sub Components';
+$lang['Add New Sub Component'] = 'Add New Sub Component';
+$lang['Edit Sub Component'] = 'Edit Sub Component';

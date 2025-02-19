@@ -1,0 +1,38 @@
+<?php 
+	$lang['scheme_code'] = 'Scheme Code';
+		$lang['scheme_name'] = 'Scheme Name';
+		$lang['water_source'] = 'Water Source';
+		$lang['latitude'] = 'Latitude';
+		$lang['longitude'] = 'Longitude';
+		$lang['beneficiaries'] = 'Beneficiaries';
+		$lang['male_beneficiaries'] = 'Male Beneficiaries';
+		$lang['female_beneficiaries'] = 'Female Beneficiaries';
+		$lang['estimated_cost'] = 'Estimated Cost';
+		$lang['approved_cost'] = 'Approved Cost';
+		$lang['revised_cost'] = 'Revised Cost';
+		$lang['sanctioned_cost'] = 'Sanctioned Cost';
+		$lang['project_name'] = 'Project Name';
+		$lang['district_name'] = 'District Name';
+		$lang['category'] = 'Category';
+		$lang['wua_name'] = 'Wua Name';
+		$lang['scheme_code'] = 'Scheme Code';
+		$lang['scheme_name'] = 'Scheme Name';
+		$lang['water_source'] = 'Water Source';
+		$lang['latitude'] = 'Latitude';
+		$lang['longitude'] = 'Longitude';
+		$lang['beneficiaries'] = 'Beneficiaries';
+		$lang['male_beneficiaries'] = 'Male Beneficiaries';
+		$lang['female_beneficiaries'] = 'Female Beneficiaries';
+		$lang['estimated_cost'] = 'Estimated Cost';
+		$lang['approved_cost'] = 'Approved Cost';
+		$lang['revised_cost'] = 'Revised Cost';
+		$lang['sanctioned_cost'] = 'Sanctioned Cost';
+		$lang['project_name'] = 'Project Name';
+		$lang['district_name'] = 'District Name';
+		$lang['category'] = 'Category';
+		$lang['wua_name'] = 'Wua Name';
+		$lang['Schemes'] = 'Schemes';
+		$lang['Scheme Details'] = 'Scheme Details';$lang['Trashed Schemes'] = 'Trashed Schemes';
+		$lang['Add New Scheme'] = 'Add New Scheme';
+		$lang['Edit Scheme'] = 'Edit Scheme';
+		
