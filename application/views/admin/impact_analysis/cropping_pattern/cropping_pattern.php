@@ -267,7 +267,12 @@
 
 
                 $result = $this->db->query($query, [$component->component])->row();
-                $cropData['data'][] = $result->per_increase ?? 0; // Ensure no NULL values
+                if ($result->per_increase) {
+                    $cropData['data'][] = $result->per_increase;
+                } else {
+                    $cropData['data'][] =  0;
+                }
+                //$cropData['data'][] = $result->per_increase ?? 0; // Ensure no NULL values
             }
 
             $data[] = $cropData;
