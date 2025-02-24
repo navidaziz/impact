@@ -369,9 +369,23 @@
 
                                 $result = $this->db->query($query, [$component->component, $region->region])->row();
                             ?>
-                                <td><?php echo $result->before ?? '-'; ?></td>
-                                <td><?php echo $result->after ?? '-'; ?></td>
-                                <td><?php echo $result->per_increase ?? '-'; ?></td>
+                                <td><?php if ($result->before) {
+                                        echo $result->before;
+                                    } else {
+                                        echo '-';
+                                    } ?></td>
+                                <td>
+                                    <?php if ($result->after) {
+                                        echo $result->after;
+                                    } else {
+                                        echo '-';
+                                    } ?></td>
+                                <td>
+                                    <?php if ($result->per_increase) {
+                                        echo $result->per_increase;
+                                    } else {
+                                        echo '-';
+                                    } ?></td>
                             <?php } ?>
 
                             <?php
@@ -382,9 +396,23 @@
                                 FROM `impact_surveys` WHERE region = ?";
                             $result = $this->db->query($query, [$region->region])->row();
                             ?>
-                            <td><?php echo $result->before ?? '-'; ?></td>
-                            <td><?php echo $result->after ?? '-'; ?></td>
-                            <td><?php echo $result->per_increase ?? '-'; ?></td>
+                            <td><?php if ($result->before) {
+                                    echo $result->before;
+                                } else {
+                                    echo '-';
+                                } ?></td>
+                            <td>
+                                <?php if ($result->after) {
+                                    echo $result->after;
+                                } else {
+                                    echo '-';
+                                } ?></td>
+                            <td>
+                                <?php if ($result->per_increase) {
+                                    echo $result->per_increase;
+                                } else {
+                                    echo '-';
+                                } ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
