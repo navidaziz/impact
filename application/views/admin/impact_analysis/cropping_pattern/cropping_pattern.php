@@ -88,7 +88,7 @@
                         },
                         yAxis: {
                             title: {
-                                text: 'Yield Increase Avg - %'
+                                text: 'AVG Change In Area Avg - %'
                             }
                         },
                         plotOptions: {
@@ -122,14 +122,14 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'Crops Wise Yield Increase Comparison'
+                    text: 'Crops Wise AVG Change In Area Comparison'
                 },
                 xAxis: {
                     categories: <?php echo json_encode(array_column($chart_data, 'name')); ?>
                 },
                 yAxis: {
                     title: {
-                        text: 'Yield Increase Avg - %'
+                        text: 'AVG Change In Area Avg - %'
                     }
                 },
                 plotOptions: {
@@ -175,7 +175,7 @@
         <table class="table table-bordered table_medium">
             <thead>
                 <tr>
-                    <th colspan="<?php echo (count($components) * 3) + 4; ?>">Increase in Crops Yield (ton/ha)</th>
+                    <th colspan="<?php echo (count($components) * 3) + 4; ?>">Component Wise and Crop Wise Average Change in Area </th>
                 </tr>
                 <tr>
                     <th rowspan="2">Crops</th>
@@ -285,7 +285,7 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'Increase in Crops Yield (%)'
+                    text: 'Component Wise and Crop Wise Average Change in Area'
                 },
                 xAxis: {
                     categories: <?php echo json_encode(array_column($components, 'component')); ?>,
@@ -295,7 +295,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Yield Increase (%)'
+                        text: 'AVG Change In Area (%)'
                     }
                 },
                 legend: {
@@ -335,7 +335,7 @@
             <table class="table table-bordered table_medium" id="<?php echo $crop . "_y_table"; ?>">
                 <thead>
                     <tr>
-                        <th colspan="<?php echo (count($components) * 3) + 4; ?>">Increase in <?php echo ucwords(str_replace("_", " ", $crop)); ?> Yield (ton/ha)</th>
+                        <th colspan="<?php echo (count($components) * 3) + 4; ?>">Average Change In <?php echo ucwords(str_replace("_", " ", $crop)); ?> Area (Ha)</th>
                     </tr>
                     <tr>
                         <th rowspan="2">Regions</th>
@@ -425,7 +425,7 @@
                         type: 'column'
                     },
                     title: {
-                        text: 'Increase in <?php echo ucwords(str_replace("_", " ", $crop)); ?> Yield (ton/ha)'
+                        text: 'Average Change In <?php echo ucwords(str_replace("_", " ", $crop)); ?> Area (Ha)'
                     },
                     xAxis: {
                         categories: [
