@@ -87,4 +87,10 @@ class Impact_analysis extends CI_Controller
       $this->data['description'] = '';
       $this->load->view('admin/impact_analysis/cropping_pattern/cropping_pattern', $this->data);
    }
+   public function water_losses()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/water_losses/water_losses', $this->data);
+   }
 }

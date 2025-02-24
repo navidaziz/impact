@@ -226,6 +226,7 @@
                     <li class="list-group-item" id="irrigated_cca_list" onclick="get_report('irrigated_cca')">Irrigated CCA AVG</li>
                     <li class="list-group-item" id="crop_yield_list" onclick="get_report('crop_yield')">Crop Yield</li>
                     <li class="list-group-item" id="cropping_pattern_list" onclick="get_report('cropping_pattern')">Cropping Pattern</li>
+                    <li class="list-group-item" id="water_losses_list" onclick="get_report('water_losses')">Water Losses</li>
 
                 </ul>
 
