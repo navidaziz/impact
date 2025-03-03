@@ -93,4 +93,23 @@ class Impact_analysis extends CI_Controller
       $this->data['description'] = '';
       $this->load->view('admin/impact_analysis/water_losses/water_losses', $this->data);
    }
+   public function water_productivity()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/water_productivity/water_productivity', $this->data);
+   }
+   public function cropping_intensity()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/cropping_intensity/cropping_intensity', $this->data);
+   }
+
+   public function beneficiaries()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/beneficiaries/beneficiaries', $this->data);
+   }
 }

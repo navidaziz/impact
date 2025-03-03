@@ -227,6 +227,9 @@
                     <li class="list-group-item" id="crop_yield_list" onclick="get_report('crop_yield')">Crop Yield</li>
                     <li class="list-group-item" id="cropping_pattern_list" onclick="get_report('cropping_pattern')">Cropping Pattern</li>
                     <li class="list-group-item" id="water_losses_list" onclick="get_report('water_losses')">Water Losses</li>
+                    <li class="list-group-item" id="water_productivity_list" onclick="get_report('water_productivity')">Water Productivity</li>
+                    <li class="list-group-item" id="cropping_intensity_list" onclick="get_report('cropping_intensity')">Cropping Intensity</li>
+                    <li class="list-group-item" id="beneficiaries_list" onclick="get_report('beneficiaries')">Beneficiaries</li>
 
                 </ul>
 
