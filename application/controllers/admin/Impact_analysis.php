@@ -112,4 +112,25 @@ class Impact_analysis extends CI_Controller
       $this->data['description'] = '';
       $this->load->view('admin/impact_analysis/beneficiaries/beneficiaries', $this->data);
    }
+
+   public function engagment_benefits()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/engagment_benefits/engagment_benefits', $this->data);
+   }
+
+   public function env_and_social_management()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/env_and_social_management/env_and_social_management', $this->data);
+   }
+
+   public function private_investment()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/private_investment/private_investment', $this->data);
+   }
 }

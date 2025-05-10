@@ -62,7 +62,6 @@
         vertical-align: top;
         border-top: 1px solid #ddd;
         font-size: 9px;
-        text-align: center;
         border: 0.1px solid gray !important;
         font-weight: bold !important;
         color: black !important;
@@ -79,7 +78,6 @@
         vertical-align: top;
         border-top: 1px solid #ddd;
         font-size: 16px;
-        text-align: center;
         border: 0.1px solid gray !important;
         font-weight: bold !important;
         color: black !important;
@@ -97,7 +95,6 @@
         vertical-align: top;
         border-top: 1px solid #ddd;
         font-size: 13px;
-        text-align: center;
         border: 0.1px solid gray !important;
         font-weight: bold !important;
         color: black !important;
@@ -230,6 +227,9 @@
                     <li class="list-group-item" id="water_productivity_list" onclick="get_report('water_productivity')">Water Productivity</li>
                     <li class="list-group-item" id="cropping_intensity_list" onclick="get_report('cropping_intensity')">Cropping Intensity</li>
                     <li class="list-group-item" id="beneficiaries_list" onclick="get_report('beneficiaries')">Beneficiaries</li>
+                    <li class="list-group-item" id="engagment_benefits_list" onclick="get_report('engagment_benefits')">Citizen Engagement & Benefits</li>
+                    <li class="list-group-item" id="env_and_social_management_list" onclick="get_report('env_and_social_management')">Environmnetal & Social Management</li>
+                    <li class="list-group-item" id="private_investment_list" onclick="get_report('private_investment')">Private Investment</li>
 
                 </ul>
 

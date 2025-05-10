@@ -47,10 +47,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                     <tr>
                         <th><?php echo ucfirst($region->region) ?></th>
                         <?php foreach ($components as $component) {
-                            $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`, 
-                            ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                            $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`, 
+                            ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE component = ?
                             AND region = ? ";
@@ -61,10 +61,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                             <td><?php echo $result->per_increase; ?></td>
                         <?php } ?>
 
-                        <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`,
-                    ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) -
-                    ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                        <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`,
+                    ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) -
+                    ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                     FROM `impact_surveys`
                     WHERE  region = ? ";
                         $result = $this->db->query($query, [$region->region])->row();
@@ -80,10 +80,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                 <tr>
                     <th>Total</th>
                     <?php foreach ($components as $component) {
-                        $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`, 
-                            ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                        $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`, 
+                            ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE component = ? ";
                         $result = $this->db->query($query, [$component->component])->row();
@@ -92,10 +92,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         <td><?php echo $result->after; ?></td>
                         <td><?php echo $result->per_increase; ?></td>
                     <?php } ?>
-                    <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`,
-                    ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) -
-                    ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                    <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`,
+                    ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) -
+                    ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                     FROM `impact_surveys` ";
                     $result = $this->db->query($query)->row();
                     ?>
@@ -149,7 +149,7 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($components as $component) {
-                                $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before` 
+                                $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before` 
                                   FROM `impact_surveys` WHERE component = ? ";
                                 $result = $this->db->query($query, [$component->component])->row();
                                 echo $result->before . ",";
@@ -162,7 +162,7 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($components as $component) {
-                                $query = "SELECT ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after` 
+                                $query = "SELECT ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after` 
                                   FROM `impact_surveys` WHERE component = ? ";
                                 $result = $this->db->query($query, [$component->component])->row();
                                 echo $result->after . ",";
@@ -175,8 +175,8 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($components as $component) {
-                                $query = "SELECT ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                                $query = "SELECT ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                                   FROM `impact_surveys` WHERE component = ? ";
                                 $result = $this->db->query($query, [$component->component])->row();
                                 echo $result->per_increase . ",";
@@ -229,10 +229,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                     <tr>
                         <th><?php echo ucfirst($region->region) ?></th>
                         <?php foreach ($sub_components as $sub_component) {
-                            $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`, 
-                            ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                            $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`, 
+                            ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE sub_component = ?
                             AND region = ? ";
@@ -243,10 +243,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                             <td><?php echo $result->per_increase; ?></td>
                         <?php } ?>
 
-                        <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`,
-                    ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) -
-                    ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                        <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`,
+                    ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) -
+                    ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                     FROM `impact_surveys`
                     WHERE  region = ? ";
                         $result = $this->db->query($query, [$region->region])->row();
@@ -262,10 +262,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                 <tr>
                     <th>Total</th>
                     <?php foreach ($sub_components as $sub_component) {
-                        $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`, 
-                            ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                        $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`, 
+                            ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE sub_component = ? ";
                         $result = $this->db->query($query, [$sub_component->sub_component])->row();
@@ -274,10 +274,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         <td><?php echo $result->after; ?></td>
                         <td><?php echo $result->per_increase; ?></td>
                     <?php } ?>
-                    <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`,
-                    ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) -
-                    ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                    <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`,
+                    ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) -
+                    ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                     FROM `impact_surveys` ";
                     $result = $this->db->query($query)->row();
                     ?>
@@ -331,7 +331,7 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($sub_components as $sub_component) {
-                                $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before` 
+                                $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before` 
                                   FROM `impact_surveys` WHERE sub_component = ? ";
                                 $result = $this->db->query($query, [$sub_component->sub_component])->row();
                                 echo $result->before . ",";
@@ -344,7 +344,7 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($sub_components as $sub_component) {
-                                $query = "SELECT ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after` 
+                                $query = "SELECT ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after` 
                                   FROM `impact_surveys` WHERE sub_component = ? ";
                                 $result = $this->db->query($query, [$sub_component->sub_component])->row();
                                 echo $result->after . ",";
@@ -357,8 +357,8 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($sub_components as $sub_component) {
-                                $query = "SELECT ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                                $query = "SELECT ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                                   FROM `impact_surveys` WHERE sub_component = ? ";
                                 $result = $this->db->query($query, [$sub_component->sub_component])->row();
                                 echo $result->per_increase . ",";
@@ -411,10 +411,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                     <tr>
                         <th><?php echo ucfirst($region->region) ?></th>
                         <?php foreach ($categories as $category) {
-                            $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`, 
-                            ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                            $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`, 
+                            ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE category = ?
                             AND region = ? ";
@@ -425,10 +425,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                             <td><?php echo $result->per_increase; ?></td>
                         <?php } ?>
 
-                        <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`,
-                    ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) -
-                    ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                        <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`,
+                    ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) -
+                    ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                     FROM `impact_surveys`
                     WHERE  region = ? ";
                         $result = $this->db->query($query, [$region->region])->row();
@@ -444,10 +444,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                 <tr>
                     <th>Total</th>
                     <?php foreach ($categories as $category) {
-                        $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`, 
-                            ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                        $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`, 
+                            ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                            ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE category = ? ";
                         $result = $this->db->query($query, [$category->category])->row();
@@ -456,10 +456,10 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         <td><?php echo $result->after; ?></td>
                         <td><?php echo $result->per_increase; ?></td>
                     <?php } ?>
-                    <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before`,
-                    ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after`,
-                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) -
-                    ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                    <?php $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before`,
+                    ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after`,
+                    ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) -
+                    ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                     FROM `impact_surveys` ";
                     $result = $this->db->query($query)->row();
                     ?>
@@ -513,7 +513,7 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($categories as $category) {
-                                $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.714, 2) AS `before` 
+                                $query = "SELECT ROUND(AVG(wheat_yield_before) / 2.471, 2) AS `before` 
                                   FROM `impact_surveys` WHERE category = ? ";
                                 $result = $this->db->query($query, [$category->category])->row();
                                 echo $result->before . ",";
@@ -526,7 +526,7 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($categories as $category) {
-                                $query = "SELECT ROUND(AVG(wheat_yield_after) / 2.714, 2) AS `after` 
+                                $query = "SELECT ROUND(AVG(wheat_yield_after) / 2.471, 2) AS `after` 
                                   FROM `impact_surveys` WHERE category = ? ";
                                 $result = $this->db->query($query, [$category->category])->row();
                                 echo $result->after . ",";
@@ -539,8 +539,8 @@ $category_title = 'Average Increase in Irrigated CCA by Region and Categories Wi
                         data: [
                             <?php
                             foreach ($categories as $category) {
-                                $query = "SELECT ROUND(((ROUND(AVG(wheat_yield_after) / 2.714, 2) - 
-                            ROUND(AVG(wheat_yield_before) / 2.714, 2))/ROUND(AVG(wheat_yield_before) / 2.714, 2)) * 100, 2) AS per_increase
+                                $query = "SELECT ROUND(((ROUND(AVG(wheat_yield_after) / 2.471, 2) - 
+                            ROUND(AVG(wheat_yield_before) / 2.471, 2))/ROUND(AVG(wheat_yield_before) / 2.471, 2)) * 100, 2) AS per_increase
                                   FROM `impact_surveys` WHERE category = ? ";
                                 $result = $this->db->query($query, [$category->category])->row();
                                 echo $result->per_increase . ",";

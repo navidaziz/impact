@@ -39,10 +39,10 @@
 
                                 <?php
 
-                                $query = "SELECT ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2) AS `before`, 
-                        ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) AS `after`,
-                        ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) - 
-                        ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2))/ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2)) * 100, 2) AS per_increase
+                                $query = "SELECT ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2) AS `before`, 
+                        ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) AS `after`,
+                        ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) - 
+                        ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2))/ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2)) * 100, 2) AS per_increase
                         FROM `impact_surveys`";
                                 $result = $this->db->query($query)->row();
 
@@ -203,10 +203,10 @@
                         <th><?php echo ucfirst($crop) ?></th>
                         <?php foreach ($components as $component) {
 
-                            $query = "SELECT ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2) AS `before`, 
-                            ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) AS `after`,
-                            ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) - 
-                            ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2))/ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2)) * 100, 2) AS per_increase
+                            $query = "SELECT ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2) AS `before`, 
+                            ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) AS `after`,
+                            ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) - 
+                            ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2))/ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`  
                             WHERE component = ? ";
                             $result = $this->db->query($query, [$component->component])->row();
@@ -219,10 +219,10 @@
                         <?php } ?>
 
                         <?php
-                        $query = "SELECT ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2) AS `before`, 
-                            ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) AS `after`,
-                            ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) - 
-                            ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2))/ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2)) * 100, 2) AS per_increase
+                        $query = "SELECT ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2) AS `before`, 
+                            ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) AS `after`,
+                            ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) - 
+                            ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2))/ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2)) * 100, 2) AS per_increase
                             FROM `impact_surveys`";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -257,11 +257,11 @@
 
             foreach ($components as $component) {
                 $query = "SELECT 
-                        COALESCE(ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2), 0) AS `before`, 
-                        COALESCE(ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2), 0) AS `after`,
-                        COALESCE(ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.714), 2) - 
-                        ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2)) /
-                        ROUND((AVG(" . $crop . "_cp_before)  / 2.714), 2)) * 100, 2), 0) AS per_increase
+                        COALESCE(ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2), 0) AS `before`, 
+                        COALESCE(ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2), 0) AS `after`,
+                        COALESCE(ROUND(((ROUND((AVG(" . $crop . "_cp_after)  / 2.471), 2) - 
+                        ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2)) /
+                        ROUND((AVG(" . $crop . "_cp_before)  / 2.471), 2)) * 100, 2), 0) AS per_increase
                       FROM `impact_surveys`  
                       WHERE component = ?";
 
@@ -361,9 +361,9 @@
                             <th><?php echo ucfirst($region->region); ?></th>
                             <?php foreach ($components as $component) {
                                 $query = "SELECT 
-                                    ROUND(AVG({$crop}_cp_before) / 2.714, 2) AS `before`, 
-                                    ROUND(AVG({$crop}_cp_after) / 2.714, 2) AS `after`,
-                                    ROUND(((ROUND(AVG({$crop}_cp_after) / 2.714, 2) - ROUND(AVG({$crop}_cp_before) / 2.714, 2)) / ROUND(AVG({$crop}_cp_before) / 2.714, 2)) * 100, 2) AS per_increase
+                                    ROUND(AVG({$crop}_cp_before) / 2.471, 2) AS `before`, 
+                                    ROUND(AVG({$crop}_cp_after) / 2.471, 2) AS `after`,
+                                    ROUND(((ROUND(AVG({$crop}_cp_after) / 2.471, 2) - ROUND(AVG({$crop}_cp_before) / 2.471, 2)) / ROUND(AVG({$crop}_cp_before) / 2.471, 2)) * 100, 2) AS per_increase
                                     FROM `impact_surveys`  
                                     WHERE component = ? AND region = ?";
 
@@ -390,9 +390,9 @@
 
                             <?php
                             $query = "SELECT 
-                                ROUND(AVG({$crop}_cp_before) / 2.714, 2) AS `before`, 
-                                ROUND(AVG({$crop}_cp_after) / 2.714, 2) AS `after`,
-                                ROUND(((ROUND(AVG({$crop}_cp_after) / 2.714, 2) - ROUND(AVG({$crop}_cp_before) / 2.714, 2)) / ROUND(AVG({$crop}_cp_before) / 2.714, 2)) * 100, 2) AS per_increase
+                                ROUND(AVG({$crop}_cp_before) / 2.471, 2) AS `before`, 
+                                ROUND(AVG({$crop}_cp_after) / 2.471, 2) AS `after`,
+                                ROUND(((ROUND(AVG({$crop}_cp_after) / 2.471, 2) - ROUND(AVG({$crop}_cp_before) / 2.471, 2)) / ROUND(AVG({$crop}_cp_before) / 2.471, 2)) * 100, 2) AS per_increase
                                 FROM `impact_surveys` WHERE region = ?";
                             $result = $this->db->query($query, [$region->region])->row();
                             ?>
@@ -459,7 +459,7 @@
                             name: 'Before Avg(Ha)',
                             data: [
                                 <?php foreach ($components as $component) {
-                                    $query = "SELECT ROUND(AVG({$crop}_cp_before) / 2.714, 2) AS `before` 
+                                    $query = "SELECT ROUND(AVG({$crop}_cp_before) / 2.471, 2) AS `before` 
                                               FROM `impact_surveys` WHERE component = ?";
                                     $result = $this->db->query($query, [$component->component])->row();
                                     echo $result->before . ",";
@@ -471,7 +471,7 @@
                             name: 'After Avg(Ha)',
                             data: [
                                 <?php foreach ($components as $component) {
-                                    $query = "SELECT ROUND(AVG({$crop}_cp_after) / 2.714, 2) AS `after` 
+                                    $query = "SELECT ROUND(AVG({$crop}_cp_after) / 2.471, 2) AS `after` 
                                               FROM `impact_surveys` WHERE component = ?";
                                     $result = $this->db->query($query, [$component->component])->row();
                                     echo $result->after . ",";
@@ -483,7 +483,7 @@
                             name: 'Increase Avg(%)',
                             data: [
                                 <?php foreach ($components as $component) {
-                                    $query = "SELECT ROUND(((ROUND(AVG({$crop}_cp_after) / 2.714, 2) - ROUND(AVG({$crop}_cp_before) / 2.714, 2)) / ROUND(AVG({$crop}_cp_before) / 2.714, 2)) * 100, 2) AS per_increase
+                                    $query = "SELECT ROUND(((ROUND(AVG({$crop}_cp_after) / 2.471, 2) - ROUND(AVG({$crop}_cp_before) / 2.471, 2)) / ROUND(AVG({$crop}_cp_before) / 2.471, 2)) * 100, 2) AS per_increase
                                               FROM `impact_surveys` WHERE component = ?";
                                     $result = $this->db->query($query, [$component->component])->row();
                                     echo $result->per_increase . ",";
