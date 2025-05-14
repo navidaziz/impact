@@ -29,7 +29,41 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
+    <script>
+        function download_in_excel(tableId) {
+            var table = document.getElementById(tableId);
+            if (!table) {
+                alert("Table with ID '" + tableId + "' not found.");
+                return;
+            }
+
+            var wb = XLSX.utils.table_to_book(table, {
+                sheet: "Sheet1"
+            });
+            var filename = tableId + "_" + Date.now() + ".xlsx";
+            XLSX.writeFile(wb, filename);
+        }
+    </script>
+    <script>
+        function exportMultipleTablesToExcel(table_name, tableIds, sheetNames) {
+            var wb = XLSX.utils.book_new();
+
+            tableIds.forEach(function(tableId, index) {
+                var table = document.getElementById(tableId);
+                if (!table) {
+                    console.warn("Table with ID '" + tableId + "' not found.");
+                    return;
+                }
+                var ws = XLSX.utils.table_to_sheet(table);
+                var sheetName = sheetNames[index] || "Sheet" + (index + 1);
+                XLSX.utils.book_append_sheet(wb, ws, sheetName);
+            });
+
+            XLSX.writeFile(wb, table_name + '_' + Date.now() + ".xlsx");
+        }
+    </script>
 
 
 </head>
@@ -169,6 +203,10 @@
         font-weight: bold;
         color: #2c3e50;
     }
+
+    .card-body {
+        margin: 2px;
+    }
 </style>
 
 <!-- Modal -->
@@ -219,7 +257,7 @@
                 </style>
                 <ul class="list-group">
                     <li class="list-group-item active" id="quarterly_field_visits_list" onclick="get_report('quarterly_field_visits')">Surveys</li>
-                    <li class="list-group-item" id="issues_and_damages_schemes_list" onclick="get_report('issues_and_damages_schemes')">Issues and Damages</li>
+                    <!-- <li class="list-group-item" id="issues_and_damages_schemes_list" onclick="get_report('issues_and_damages_schemes')">Issues and Damages</li> -->
                     <li class="list-group-item" id="irrigated_cca_list" onclick="get_report('irrigated_cca')">Irrigated CCA AVG</li>
                     <li class="list-group-item" id="crop_yield_list" onclick="get_report('crop_yield')">Crop Yield</li>
                     <li class="list-group-item" id="cropping_pattern_list" onclick="get_report('cropping_pattern')">Cropping Pattern</li>

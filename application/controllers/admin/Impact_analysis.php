@@ -133,4 +133,27 @@ class Impact_analysis extends CI_Controller
       $this->data['description'] = '';
       $this->load->view('admin/impact_analysis/private_investment/private_investment', $this->data);
    }
+
+   public function export_data($file_name)
+   {
+      if ($file_name == 'Irrigated_CCA') {
+         $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category, 
+         irrigated_area_before, irrigated_area_after FROM `impact_surveys` ORDER BY id ASC ";
+      } else {
+         echo "File Name Not Found";
+      }
+      $result = $this->db->query($query)->result_array();
+      $filename = $file_name . '_' . time() . '.csv';
+      header('Content-Type: text/csv');
+      header('Content-Disposition: attachment;filename=' . $filename);
+      $output = fopen('php://output', 'w');
+      if (!empty($result)) {
+         // Get headers from the first row
+         fputcsv($output, array_keys($result[0]));
+         foreach ($result as $row) {
+            fputcsv($output, $row);
+         }
+      }
+      fclose($output);
+   }
 }
