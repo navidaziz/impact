@@ -1,4 +1,23 @@
-<h4>Impact Analysis on Increase in Crops Yield</h4>
+<h4></h4>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Impact Analysis on Increase in Crops Yield</h4>
+        <small>Analysis of total <strong><?php
+                                            $query = "SELECT COUNT(*) as total FROM `impact_surveys`";
+                                            echo number_format($this->db->query($query)->row()->total);
+
+                                            ?></strong> Impact Surveys</small>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+        <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Crop_Yields'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data</a>
+        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Irrigated_CCA',['table_1', 'table_2', 'table_3', 'table_4'], ['Sheet1', 'Sheet2', 'Sheet3', 'Sheet4'])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
+
+
+    </div>
+</div>
+
+
+<hr />
 
 <div class="row">
     <div class="col-md-6">

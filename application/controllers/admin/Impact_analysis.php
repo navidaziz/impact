@@ -136,11 +136,28 @@ class Impact_analysis extends CI_Controller
 
    public function export_data($file_name)
    {
-      if ($file_name == 'Irrigated_CCA') {
-         $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category, 
-         irrigated_area_before, irrigated_area_after FROM `impact_surveys` ORDER BY id ASC ";
-      } else {
-         echo "File Name Not Found";
+      switch ($file_name) {
+         case 'Irrigated_CCA':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category, 
+                  irrigated_area_before, irrigated_area_after 
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         case 'Crop_Yields':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                     `wheat_yield_before`, `wheat_yield_after`, 
+                     `maize_yield_before`, `maize_yield_after`, 
+                     `sugarcane_yield_before`, `sugarcane_yield_after`, 
+                     `vegetable_yield`, `orchard_yield`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         default:
+            echo "File Name Not Found";
+            exit();
+            break;
       }
       $result = $this->db->query($query)->result_array();
       $filename = $file_name . '_' . time() . '.csv';
