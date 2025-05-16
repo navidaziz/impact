@@ -453,136 +453,136 @@ $components = $components_result->result();
                 </div>
             </div>
         </div>
-
-
-        <?php
-        function toFloatArray($array)
-        {
-            return array_map('floatval', $array);
-        }
-        ?>
-        <?php foreach ($chart_data as $component_name => $data): ?>
-            <div class="col-md-4">
-                <div id="chart_<?php echo $component_name; ?>" style="width:100%; height:400px; margin-bottom: 50px;"></div>
-            </div>
-        <?php endforeach; ?>
-        <script>
-            <?php foreach ($chart_data as $component_name => $data): ?>
-                Highcharts.chart('chart_<?php echo $component_name; ?>', {
-                    chart: {
-                        type: 'bar'
-                    },
-                    title: {
-                        text: 'Component <?php echo $component_name; ?> - Region-wise CCA Impact'
-                    },
-                    xAxis: {
-                        categories: <?php echo json_encode($data['regions']); ?>,
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Hectares / %'
-                        }
-                    },
-                    tooltip: {
-                        shared: true,
-                        valueSuffix: ''
-                    },
-                    plotOptions: {
-                        bar: {
-                            pointPadding: 0.2,
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{y}',
-                                style: {
-                                    fontSize: '9px' // Change to your desired font size
-                                }
-
-                            }
-                        }
-                    },
-                    series: [{
-                            name: 'Before (Ha)',
-                            data: <?php echo json_encode(toFloatArray($data['before'])); ?>
-                        },
-                        {
-                            name: 'After (Ha)',
-                            data: <?php echo json_encode(toFloatArray($data['after'])); ?>
-                        },
-                        {
-                            name: 'Increase (Ha)',
-                            data: <?php echo json_encode(toFloatArray($data['increase'])); ?>
-                        },
-                        {
-                            name: 'Increase (%)',
-                            data: <?php echo json_encode(toFloatArray($data['per_increase'])); ?>
-                            // You can optionally use type: 'line' if you want it overlaid
-                        }
-                    ]
-                });
-            <?php endforeach; ?>
-        </script>
-
     </div>
 
+    <?php
+    function toFloatArray($array)
+    {
+        return array_map('floatval', $array);
+    }
+    ?>
+    <?php foreach ($chart_data as $component_name => $data): ?>
+        <div class="col-md-4">
+            <div id="chart_<?php echo $component_name; ?>"></div>
+        </div>
+    <?php endforeach; ?>
+    <script>
+        <?php foreach ($chart_data as $component_name => $data): ?>
+            Highcharts.chart('chart_<?php echo $component_name; ?>', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Component <?php echo $component_name; ?> - Region-wise CCA Impact'
+                },
+                xAxis: {
+                    categories: <?php echo json_encode($data['regions']); ?>,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Hectares / %'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{y}',
+                            style: {
+                                fontSize: '9px' // Change to your desired font size
+                            }
 
-    <div class="row">
-        <?php $query = "SELECT `sub_component` FROM `impact_surveys`
-    GROUP BY `sub_component` ORDER BY `sub_component` ASC";
-        $sub_components_result = $this->db->query($query);
-        $sub_components = $sub_components_result->result();
-        ?>
-        <div class="col-md-12">
-            <div class="card shadow-sm mb-4" style="margin-top: 8px;">
-                <div class="card-header bg-primary text-white">
-                    <strong>Average Increase in Irrigated CCA by Region and Sub Component Wise</strong>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table id="table_3" class="table table-bordered table-hover table_small">
-                            <thead class="thead-light">
+                        }
+                    }
+                },
+                series: [{
+                        name: 'Before (Ha)',
+                        data: <?php echo json_encode(toFloatArray($data['before'])); ?>
+                    },
+                    {
+                        name: 'After (Ha)',
+                        data: <?php echo json_encode(toFloatArray($data['after'])); ?>
+                    },
+                    {
+                        name: 'Increase (Ha)',
+                        data: <?php echo json_encode(toFloatArray($data['increase'])); ?>
+                    },
+                    {
+                        name: 'Increase (%)',
+                        data: <?php echo json_encode(toFloatArray($data['per_increase'])); ?>
+                        // You can optionally use type: 'line' if you want it overlaid
+                    }
+                ]
+            });
+        <?php endforeach; ?>
+    </script>
+
+</div>
+
+
+<div class="row">
+    <?php $query = "SELECT `sub_component` FROM `impact_surveys`
+            GROUP BY `sub_component` ORDER BY `sub_component` ASC";
+    $sub_components_result = $this->db->query($query);
+    $sub_components = $sub_components_result->result();
+    ?>
+    <div class="col-md-12">
+        <div class="card shadow-sm mb-4" style="margin-top: 8px;">
+            <div class="card-header bg-primary text-white">
+                <strong>Average Increase in Irrigated CCA by Region and Sub Component Wise</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table id="table_3" class="table table-bordered table-hover table_small">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style=" display:none; text-align:center" colspan="<?php //echo (1 + (count($categorys) * 4)) 
+                                                                                        ?>">Average Increase in Irrigated CCA by Region and Sub Component Wise</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2" class="align-middle">Regions</th>
+                                <?php foreach ($sub_components as $sub_component) { ?>
+                                    <th colspan="4" class="text-center">Sub Component <?php echo $sub_component->sub_component; ?></th>
+                                <?php } ?>
+                            </tr>
+                            <tr>
+                                <?php foreach ($sub_components as $sub_component) { ?>
+                                    <!-- <th class="text-center"><small>Total</small></th> -->
+                                    <th class="text-center">Before <small>(Ha)</small></th>
+                                    <th class="text-center">After <small>(Ha)</small></th>
+                                    <th class="text-center">Increase <small>(Ha)</small></th>
+                                    <th class="text-center">Increase <small>(%)</small></th>
+                                <?php } ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $total = 0;
+                            $before = 0;
+                            $after = 0;
+                            $increase = 0;
+                            $per_increase = 0;
+                            foreach ($sub_components as $sub_component) {
+                                $sub_component->total = 0;
+                                $sub_component->before = 0;
+                                $sub_component->after = 0;
+                                $sub_component->increase = 0;
+                                $sub_component->per_increase = 0;
+                            }
+                            foreach ($regions as $region) {  ?>
                                 <tr>
-                                    <th style=" display:none; text-align:center" colspan="<?php //echo (1 + (count($categorys) * 4)) 
-                                                                                            ?>">Average Increase in Irrigated CCA by Region and Sub Component Wise</th>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2" class="align-middle">Regions</th>
-                                    <?php foreach ($sub_components as $sub_component) { ?>
-                                        <th colspan="4" class="text-center">Sub Component <?php echo $sub_component->sub_component; ?></th>
-                                    <?php } ?>
-                                </tr>
-                                <tr>
-                                    <?php foreach ($sub_components as $sub_component) { ?>
-                                        <!-- <th class="text-center"><small>Total</small></th> -->
-                                        <th class="text-center">Before <small>(Ha)</small></th>
-                                        <th class="text-center">After <small>(Ha)</small></th>
-                                        <th class="text-center">Increase <small>(Ha)</small></th>
-                                        <th class="text-center">Increase <small>(%)</small></th>
-                                    <?php } ?>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $total = 0;
-                                $before = 0;
-                                $after = 0;
-                                $increase = 0;
-                                $per_increase = 0;
-                                foreach ($sub_components as $sub_component) {
-                                    $sub_component->total = 0;
-                                    $sub_component->before = 0;
-                                    $sub_component->after = 0;
-                                    $sub_component->increase = 0;
-                                    $sub_component->per_increase = 0;
-                                }
-                                foreach ($regions as $region) {  ?>
-                                    <tr>
-                                        <th><?php echo ucfirst($region->region) ?></th>
-                                        <?php
-                                        foreach ($sub_components as $sub_component) {
-                                            $query = "SELECT 
+                                    <th><?php echo ucfirst($region->region) ?></th>
+                                    <?php
+                                    foreach ($sub_components as $sub_component) {
+                                        $query = "SELECT 
                                         COUNT(*) as total,
                                         ROUND(AVG(irrigated_area_before / 2.471), 2) AS `before`,
                                         ROUND(AVG(irrigated_area_after / 2.471), 2) AS `after`,
@@ -593,107 +593,107 @@ $components = $components_result->result();
                                         2) AS `per_increase`
                                         FROM `impact_surveys`  
                                         WHERE sub_component = ? AND region = ?";
-                                            $result = $this->db->query($query, array($sub_component->sub_component, $region->region));
-                                            $row = $result->row();
-                                            // Accumulate region totals
-                                            $sub_component->total += $row->total;
-                                            $sub_component->before += $row->before * $row->total;
-                                            $sub_component->after += $row->after * $row->total;
-                                            $sub_component->increase += $row->increase * $row->total;
-                                            $sub_component->per_increase += $row->per_increase * $row->total;
-                                        ?>
-                                            <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
-                                            <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
-                                            <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
-                                            <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
-                                            <td class="text-center"><?php echo number_format($row->per_increase, 2); ?></td>
-                                        <?php } ?>
-
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                            <tfoot class="font-weight-bold">
-
-                                <tr>
-                                    <th>Weighted Average</th>
-
-                                    <?php foreach ($sub_components as $sub_component) { ?>
-                                        <td class="text-center">
-                                            <?php echo $sub_component->total != 0 ? round($sub_component->before / $sub_component->total, 2) : '0.00'; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php echo $sub_component->total != 0 ? round($sub_component->after / $sub_component->total, 2) : '0.00'; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php echo $sub_component->total != 0 ? round($sub_component->increase / $sub_component->total, 2) : '0.00'; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php echo $sub_component->total != 0 ? round($sub_component->per_increase / $sub_component->total, 2) : '0.00'; ?>
-                                        </td>
+                                        $result = $this->db->query($query, array($sub_component->sub_component, $region->region));
+                                        $row = $result->row();
+                                        // Accumulate region totals
+                                        $sub_component->total += $row->total;
+                                        $sub_component->before += $row->before * $row->total;
+                                        $sub_component->after += $row->after * $row->total;
+                                        $sub_component->increase += $row->increase * $row->total;
+                                        $sub_component->per_increase += $row->per_increase * $row->total;
+                                    ?>
+                                        <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
+                                        <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
+                                        <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
+                                        <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
+                                        <td class="text-center"><?php echo number_format($row->per_increase, 2); ?></td>
                                     <?php } ?>
-                                </tr>
 
-                            </tfoot>
-                        </table>
-                    </div>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot class="font-weight-bold">
+
+                            <tr>
+                                <th>Weighted Average</th>
+
+                                <?php foreach ($sub_components as $sub_component) { ?>
+                                    <td class="text-center">
+                                        <?php echo $sub_component->total != 0 ? round($sub_component->before / $sub_component->total, 2) : '0.00'; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo $sub_component->total != 0 ? round($sub_component->after / $sub_component->total, 2) : '0.00'; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo $sub_component->total != 0 ? round($sub_component->increase / $sub_component->total, 2) : '0.00'; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo $sub_component->total != 0 ? round($sub_component->per_increase / $sub_component->total, 2) : '0.00'; ?>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="row">
-        <?php
-        $query = "SELECT `category` FROM `impact_surveys`
-    GROUP BY `category` ORDER BY `category` ASC";
-        $categorys_result = $this->db->query($query);
-        $categorys = $categorys_result->result();
-        ?>
-        <div class="col-md-12">
-            <div class="card shadow-sm mb-4" style="margin-top: 8px;">
-                <div class="card-header bg-primary text-white">
-                    <strong>Average Increase in Irrigated CCA by Region and Categories Wise</strong>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table id="table_4" class="table table-bordered table-hover table_small">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th style=" display:none; text-align:center" colspan="<?php //echo (1 + (count($categorys) * 4)) 
-                                                                                            ?>">Average Increase in Irrigated CCA by Region and Categories Wise</th>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2" class="align-middle">Regions</th>
-                                    <?php foreach ($categorys as $category) { ?>
-                                        <th colspan="4" class="text-center">Categories <?php echo $category->category; ?></th>
-                                    <?php } ?>
-                                </tr>
-                                <tr>
-                                    <?php foreach ($categorys as $category) { ?>
-                                        <!-- <th class="text-center"><small>Total</small></th> -->
-                                        <th class="text-center">Before <small>(Ha)</small></th>
-                                        <th class="text-center">After <small>(Ha)</small></th>
-                                        <th class="text-center">Increase <small>(Ha)</small></th>
-                                        <th class="text-center">Increase <small>(%)</small></th>
-                                    <?php } ?>
+<div class="row">
+    <?php
+    $query = "SELECT `category` FROM `impact_surveys`
+        GROUP BY `category` ORDER BY `category` ASC";
+    $categorys_result = $this->db->query($query);
+    $categorys = $categorys_result->result();
+    ?>
+    <div class="col-md-12">
+        <div class="card shadow-sm mb-4" style="margin-top: 8px;">
+            <div class="card-header bg-primary text-white">
+                <strong>Average Increase in Irrigated CCA by Region and Categories Wise</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table id="table_4" class="table table-bordered table-hover table_small">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style=" display:none; text-align:center" colspan="<?php //echo (1 + (count($categorys) * 4)) 
+                                                                                        ?>">Average Increase in Irrigated CCA by Region and Categories Wise</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2" class="align-middle">Regions</th>
+                                <?php foreach ($categorys as $category) { ?>
+                                    <th colspan="4" class="text-center">Categories <?php echo $category->category; ?></th>
+                                <?php } ?>
+                            </tr>
+                            <tr>
+                                <?php foreach ($categorys as $category) { ?>
+                                    <!-- <th class="text-center"><small>Total</small></th> -->
+                                    <th class="text-center">Before <small>(Ha)</small></th>
+                                    <th class="text-center">After <small>(Ha)</small></th>
+                                    <th class="text-center">Increase <small>(Ha)</small></th>
+                                    <th class="text-center">Increase <small>(%)</small></th>
+                                <?php } ?>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($categorys as $category) {
-                                    $category->total = 0;
-                                    $category->before = 0;
-                                    $category->after = 0;
-                                    $category->increase = 0;
-                                    $category->per_increase = 0;
-                                }
-                                foreach ($regions as $region) {  ?>
-                                    <tr>
-                                        <th><?php echo ucfirst($region->region) ?></th>
-                                        <?php
-                                        foreach ($categorys as $category) {
-                                            $query = "SELECT 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($categorys as $category) {
+                                $category->total = 0;
+                                $category->before = 0;
+                                $category->after = 0;
+                                $category->increase = 0;
+                                $category->per_increase = 0;
+                            }
+                            foreach ($regions as $region) {  ?>
+                                <tr>
+                                    <th><?php echo ucfirst($region->region) ?></th>
+                                    <?php
+                                    foreach ($categorys as $category) {
+                                        $query = "SELECT 
                                         COUNT(*) as total,
                                         ROUND(AVG(irrigated_area_before / 2.471), 2) AS `before`,
                                         ROUND(AVG(irrigated_area_after / 2.471), 2) AS `after`,
@@ -704,49 +704,49 @@ $components = $components_result->result();
                                         2) AS `per_increase`
                                         FROM `impact_surveys`  
                                         WHERE category = ? AND region = ?";
-                                            $result = $this->db->query($query, array($category->category, $region->region));
-                                            $row = $result->row();
-                                            // Accumulate region totals
-                                            $category->total += $row->total;
-                                            $category->before += $row->before * $row->total;
-                                            $category->after += $row->after * $row->total;
-                                            $category->increase += $row->increase * $row->total;
-                                            $category->per_increase += $row->per_increase * $row->total;
-                                        ?>
-                                            <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
-                                            <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
-                                            <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
-                                            <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
-                                            <td class="text-center"><?php echo number_format($row->per_increase, 2); ?></td>
-                                        <?php } ?>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                            <tfoot class="font-weight-bold">
-
-                                <tr>
-                                    <th>Weighted Average</th>
-
-                                    <?php foreach ($categorys as $category) { ?>
-                                        <td class="text-center">
-                                            <?php echo $category->total != 0 ? round($category->before / $category->total, 2) : '0.00'; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php echo $category->total != 0 ? round($category->after / $category->total, 2) : '0.00'; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php echo $category->total != 0 ? round($category->increase / $category->total, 2) : '0.00'; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php echo $category->total != 0 ? round($category->per_increase / $category->total, 2) : '0.00'; ?>
-                                        </td>
+                                        $result = $this->db->query($query, array($category->category, $region->region));
+                                        $row = $result->row();
+                                        // Accumulate region totals
+                                        $category->total += $row->total;
+                                        $category->before += $row->before * $row->total;
+                                        $category->after += $row->after * $row->total;
+                                        $category->increase += $row->increase * $row->total;
+                                        $category->per_increase += $row->per_increase * $row->total;
+                                    ?>
+                                        <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
+                                        <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
+                                        <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
+                                        <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
+                                        <td class="text-center"><?php echo number_format($row->per_increase, 2); ?></td>
                                     <?php } ?>
                                 </tr>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot class="font-weight-bold">
 
-                            </tfoot>
-                        </table>
-                    </div>
+                            <tr>
+                                <th>Weighted Average</th>
+
+                                <?php foreach ($categorys as $category) { ?>
+                                    <td class="text-center">
+                                        <?php echo $category->total != 0 ? round($category->before / $category->total, 2) : '0.00'; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo $category->total != 0 ? round($category->after / $category->total, 2) : '0.00'; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo $category->total != 0 ? round($category->increase / $category->total, 2) : '0.00'; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php echo $category->total != 0 ? round($category->per_increase / $category->total, 2) : '0.00'; ?>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
