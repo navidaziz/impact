@@ -27,7 +27,7 @@ GROUP BY `component` ORDER BY `component` ASC";
 $components = $this->db->query($query)->result();
 ?>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <?php
         $chartData = [];
         $categories = [];
@@ -111,56 +111,14 @@ $components = $this->db->query($query)->result();
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div id="cca_summary" style="height:290px">
-
-        </div>
-        <script>
-            Highcharts.chart('cca_summary', {
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: 'Increase in Irrigated CCA Summary'
-                },
-                xAxis: {
-                    categories: ["Before", "After", "Increase", "Increase %"],
-                },
-                yAxis: {
-                    title: {
-                        text: 'Area (Hectares)'
-                    }
-                },
-                plotOptions: {
-                    bar: {
-                        grouping: true,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y:.2f} '
-                        }
-                    }
-                },
-                series: [{
-                        name: 'Weighted Average',
-                        data: [<?php echo number_format(round($befor_weight / $total, 2), 2); ?>,
-                            <?php echo number_format(round($after_weight / $total, 2), 2); ?>,
-                            <?php echo number_format(round($increase_weight / $total, 2), 2); ?>,
-                            <?php echo number_format(round($per_increase_weight / $total, 2), 2); ?>
-                        ]
-                    }
-
-                ]
-            });
-        </script>
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <div id="areaChart" style="height: 260px;"></div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <div id="increaseChart" style="height: 260px;"></div>
@@ -416,29 +374,59 @@ $components = $this->db->query($query)->result();
                         <?php } ?>
                     </tbody>
                     <tfoot class="font-weight-bold">
+                        <tr>
+                            <th>Average</th>
+                            <?php
+                            foreach ($components as $component) {
+                                $query = "SELECT 
+                                COUNT(*) as total,
+                                ROUND(AVG(irrigated_area_before / 2.471), 2) AS `before`,
+                                ROUND(AVG(irrigated_area_after / 2.471), 2) AS `after`,
+                                ROUND(AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471), 2) AS `increase`,
+                                ROUND(
+                                    (AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471)) / 
+                                    AVG(irrigated_area_before / 2.471) * 100, 
+                                2) AS `per_increase`
+                                FROM `impact_surveys`  
+                                WHERE component = ?";
+                                $result = $this->db->query($query, [$component->component])->row();
+                            ?>
+                                <!-- <td class="text-center"><small><?php echo $result->total; ?></small></td> -->
+                                <td class="text-center"><?php echo number_format($result->before, 2); ?></td>
+                                <td class="text-center"><?php echo number_format($result->after, 2); ?></td>
+                                <td class="text-center"><?php echo number_format($result->increase, 2); ?></td>
+                                <td class="text-center"><?php echo number_format($result->per_increase, 2); ?></td>
+                            <?php } ?>
 
+                            <?php
+                            $query = "SELECT 
+                            COUNT(*) as total,
+                            ROUND(AVG(irrigated_area_before / 2.471), 2) AS `before`,
+                            ROUND(AVG(irrigated_area_after / 2.471), 2) AS `after`,
+                            ROUND(AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471), 2) AS `increase`,
+                            ROUND(
+                                (AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471)) / 
+                                AVG(irrigated_area_before / 2.471) * 100, 
+                            2) AS `per_increase`
+                            FROM `impact_surveys`";
+                            $result = $this->db->query($query)->row();
+                            ?>
+                            <!-- <td class="text-center"><small><?php echo $result->total; ?></small></td> -->
+                            <td class="text-center"><?php echo number_format($result->before, 2); ?></td>
+                            <td class="text-center"><?php echo number_format($result->after, 2); ?></td>
+                            <td class="text-center"><?php echo number_format($result->increase, 2); ?></td>
+                            <td class="text-center"><?php echo number_format($result->per_increase, 2); ?></td>
+                        </tr>
                         <tr>
                             <th>Weighted Average</th>
 
-                            <?php foreach ($components as $component) {
-                                $chart_data[$component->component]['regions'][] = 'Weighted AVG';
-                                $chart_data[$component->component]['before'][] = round($component->before / $component->total, 2) ?? 0;
-                                $chart_data[$component->component]['after'][] = round($component->after / $component->total, 2) ?? 0;
-                                $chart_data[$component->component]['increase'][] = round($component->increase / $component->total, 2) ?? 0;
-                                $chart_data[$component->component]['per_increase'][] = round($component->per_increase / $component->total, 2) ?? 0;
-                            ?>
+                            <?php foreach ($components as $component) { ?>
                                 <!-- <td class="text-center"><small><?php echo $component->total; ?></small></td> -->
                                 <td class="text-center"><?php echo round($component->before / $component->total, 2); ?></td>
                                 <td class="text-center"><?php echo round($component->after / $component->total, 2); ?></td>
                                 <td class="text-center"><?php echo round($component->increase / $component->total, 2); ?></td>
                                 <td class="text-center"><?php echo round($component->per_increase / $component->total, 2); ?></td>
-                            <?php }
-                            $chart_data['Over All']['regions'][] = 'Weighted AVG';
-                            $chart_data['Over All']['before'][] = round($before / $total, 2) ?? 0;
-                            $chart_data['Over All']['after'][] = round($after / $total, 2) ?? 0;
-                            $chart_data['Over All']['increase'][] = round($increase / $total, 2) ?? 0;
-                            $chart_data['Over All']['per_increase'][] = round($per_increase / $total, 2) ?? 0;
-                            ?>
+                            <?php } ?>
                             <!-- <td class="text-center"><small><?php echo $total; ?></small></td> -->
                             <td class="text-center"><?php echo round($before / $total, 2); ?></td>
                             <td class="text-center"><?php echo round($after / $total, 2); ?></td>
@@ -450,10 +438,8 @@ $components = $this->db->query($query)->result();
             </div>
         </div>
     </div>
-
-
     <?php
-    // var_dump($chart_data);
+
 
     function toFloatArray($array)
     {
@@ -469,7 +455,7 @@ $components = $this->db->query($query)->result();
         <?php foreach ($chart_data as $component_name => $data): ?>
             Highcharts.chart('chart_<?php echo $component_name; ?>', {
                 chart: {
-                    type: 'bar'
+                    type: 'column'
                 },
                 title: {
                     text: 'Component <?php echo $component_name; ?> - Region-wise CCA Impact'
@@ -489,7 +475,7 @@ $components = $this->db->query($query)->result();
                     valueSuffix: ''
                 },
                 plotOptions: {
-                    bar: {
+                    column: {
                         pointPadding: 0.2,
                         borderWidth: 0,
                         dataLabels: {
@@ -613,7 +599,30 @@ $components = $this->db->query($query)->result();
                             <?php } ?>
                         </tbody>
                         <tfoot class="font-weight-bold">
-
+                            <tr>
+                                <th>Average</th>
+                                <?php
+                                foreach ($sub_components as $sub_component) {
+                                    $query = "SELECT 
+                                COUNT(*) as total,
+                                ROUND(AVG(irrigated_area_before / 2.471), 2) AS `before`,
+                                ROUND(AVG(irrigated_area_after / 2.471), 2) AS `after`,
+                                ROUND(AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471), 2) AS `increase`,
+                                ROUND(
+                                    (AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471)) / 
+                                    AVG(irrigated_area_before / 2.471) * 100, 
+                                2) AS `per_increase`
+                                FROM `impact_surveys`  
+                                WHERE sub_component = ?";
+                                    $result = $this->db->query($query, [$sub_component->sub_component])->row();
+                                ?>
+                                    <!-- <td class="text-center"><small><?php echo $result->total; ?></small></td> -->
+                                    <td class="text-center"><?php echo number_format($result->before, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($result->after, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($result->increase, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($result->per_increase, 2); ?></td>
+                                <?php } ?>
+                            </tr>
                             <tr>
                                 <th>Weighted Average</th>
 
@@ -721,7 +730,31 @@ $components = $this->db->query($query)->result();
                             <?php } ?>
                         </tbody>
                         <tfoot class="font-weight-bold">
+                            <tr>
+                                <th>Average</th>
+                                <?php
+                                foreach ($categorys as $category) {
+                                    $query = "SELECT 
+                                COUNT(*) as total,
+                                ROUND(AVG(irrigated_area_before / 2.471), 2) AS `before`,
+                                ROUND(AVG(irrigated_area_after / 2.471), 2) AS `after`,
+                                ROUND(AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471), 2) AS `increase`,
+                                ROUND(
+                                    (AVG(irrigated_area_after / 2.471) - AVG(irrigated_area_before / 2.471)) / 
+                                    AVG(irrigated_area_before / 2.471) * 100, 
+                                2) AS `per_increase`
+                                FROM `impact_surveys`  
+                                WHERE category = ?";
+                                    $result = $this->db->query($query, [$category->category])->row();
+                                ?>
+                                    <!-- <td class="text-center"><small><?php echo $result->total; ?></small></td> -->
+                                    <td class="text-center"><?php echo number_format($result->before, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($result->after, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($result->increase, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($result->per_increase, 2); ?></td>
+                                <?php } ?>
 
+                            </tr>
                             <tr>
                                 <th>Weighted Average</th>
 

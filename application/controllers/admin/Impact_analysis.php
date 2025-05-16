@@ -137,6 +137,8 @@ class Impact_analysis extends CI_Controller
    public function export_data($file_name)
    {
       switch ($file_name) {
+
+
          case 'Irrigated_CCA':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category, 
                   irrigated_area_before, irrigated_area_after 
@@ -150,6 +152,20 @@ class Impact_analysis extends CI_Controller
                      `maize_yield_before`, `maize_yield_after`, 
                      `sugarcane_yield_before`, `sugarcane_yield_after`, 
                      `vegetable_yield`, `orchard_yield`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+
+         case 'Cropping_Pattern':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                     wheat_cp_before, wheat_cp_after,
+                     maize_cp_before, maize_cp_after,
+                     maize_hybrid_cp_before, maize_hybrid_cp_after,
+                     sugarcane_cp_before, sugarcane_cp_after,
+                     fodder_cp_before, fodder_cp_after,
+                     vegetable_cp_before, vegetable_cp_after,
+                     fruit_orchard_cp_before, fruit_orchard_cp_after
                   FROM `impact_surveys` 
                   ORDER BY id ASC";
             break;
