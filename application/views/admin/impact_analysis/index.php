@@ -130,7 +130,6 @@
         border-top: 1px solid #ddd;
         font-size: 13px;
         border: 0.1px solid gray !important;
-        font-weight: bold !important;
         color: black !important;
 
     }
