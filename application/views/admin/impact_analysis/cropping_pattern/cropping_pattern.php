@@ -42,7 +42,7 @@
                     <table class="table table-bordered table-striped" style="font-size: 12px;" id="table_1">
                         <thead>
                             <tr style="display: none;">
-                                <th colspan="6">Increase in Cropping Patteren (ton/ha)</th>
+                                <th colspan="6">Increase in Cropping Patteren </th>
                             </tr>
 
                             <tr>
@@ -246,14 +246,14 @@
     <div class="col-md-8">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
-                <strong>Component Wise Increase in Cropping Patteren (ton/ha)</strong>
+                <strong>Component Wise Increase in Cropping Patteren </strong>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-bordered table_medium" id="table_2">
                         <thead>
                             <tr>
-                                <th style="display: none;" colspan="<?php echo (count($components) * 3) + 4; ?>">Component Wise Increase in Cropping Patteren (ton/ha)</th>
+                                <th style="display: none;" colspan="<?php echo (count($components) * 3) + 4; ?>">Component Wise Increase in Cropping Patteren </th>
                             </tr>
                             <tr>
                                 <th rowspan="2">Crops</th>
@@ -483,14 +483,14 @@
         <div class="col-md-12" style="margin-bottom: 10px;">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <strong>Region and Component Wise Increase in <?php echo ucfirst($s_crop); ?> Patteren (ton/ha)</strong>
+                    <strong>Region and Component Wise Increase in <?php echo ucfirst($s_crop); ?> Patteren </strong>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-bordered table_medium" id="<?php echo $s_crop; ?>">
                             <thead>
                                 <tr style="display: none;">
-                                    <th colspan="<?php echo ((1 + (count($components) * 5)) + 5); ?>">Region and Component Wise Increase in <?php echo ucfirst($s_crop) ?> Patteren (ton/ha)</th>
+                                    <th colspan="<?php echo ((1 + (count($components) * 5)) + 5); ?>">Region and Component Wise Increase in <?php echo ucfirst($s_crop) ?> Patteren </th>
                                 </tr>
                                 <tr>
                                     <th rowspan="2">Regions</th>
