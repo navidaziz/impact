@@ -100,7 +100,11 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div id="cropsPatteren" style="width: 100%; "></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="cropsPatteren" style="width: 100%; "></div>
+            </div>
+        </div>
         <script>
             Highcharts.chart('cropsPatteren', {
                 chart: {
@@ -141,7 +145,11 @@
     </div>
 
     <div class="col-md-6">
-        <div id="CcropPatterenChart" style="width: 100%; height: 300px;"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="CcropPatterenChart" style="width: 100%; height: 350px;"></div>
+            </div>
+        </div>
         <script>
             Highcharts.chart('CcropPatterenChart', {
                 chart: {
@@ -202,7 +210,11 @@
         </script>
     </div>
     <div class="col-md-6">
-        <div id="CcropPatterenChartPercentage" style="width: 100%; height: 300px;"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="CcropPatterenChartPercentage" style="width: 100%; height: 350px;"></div>
+            </div>
+        </div>
         <script>
             Highcharts.chart('CcropPatterenChartPercentage', {
                 chart: {
@@ -387,7 +399,11 @@
 
     </div>
     <div class="col-md-4">
-        <div id="ComponentAverageIncrese" style="width: 100; height:300px"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="ComponentAverageIncrese" style="width: 100; height:300px"></div>
+            </div>
+        </div>
 
         <script>
             Highcharts.chart('ComponentAverageIncrese', {
@@ -400,7 +416,7 @@
                 xAxis: {
                     categories: <?php
                                 $componentNames = array_column($components, 'component');
-                                $componentNames[] = 'Percentage Incress'; // Add "Overall" to the end
+                                $componentNames[] = 'Increase %'; // Add "Overall" to the end
                                 echo json_encode($componentNames);
                                 ?>,
                     title: {
@@ -429,7 +445,11 @@
         </script>
     </div>
     <div class="col-md-12">
-        <div id="cropPatterenChart" style="width: 100%;"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="cropPatterenChart" style="width: 100%;"></div>
+            </div>
+        </div>
 
 
         <script>

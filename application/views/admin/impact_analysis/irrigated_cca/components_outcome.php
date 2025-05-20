@@ -114,8 +114,11 @@ $components = $components_result->result();
         </div>
     </div>
     <div class="col-md-6">
-        <div id="cca_summary" style="height:290px">
-
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="cca_summary" style="height:250px">
+                </div>
+            </div>
         </div>
         <script>
             Highcharts.chart('cca_summary', {
@@ -138,7 +141,7 @@ $components = $components_result->result();
                         grouping: true,
                         dataLabels: {
                             enabled: true,
-                            format: '{point.y:.2f} '
+                            format: '{point.y:.2f} %'
                         }
                     }
                 },

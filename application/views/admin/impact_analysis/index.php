@@ -107,13 +107,11 @@
     .table_medium2>tfoot>tr>th,
     .table_medium2>thead>tr>td,
     .table_medium2>thead>tr>th {
-        padding: 2px;
-        line-height: 1.42857143;
+        padding: 5px;
         vertical-align: top;
         border-top: 1px solid #ddd;
         font-size: 16px;
         border: 0.1px solid gray !important;
-        font-weight: bold !important;
         color: black !important;
 
     }
@@ -168,6 +166,10 @@
         margin-top: 1px;
         padding: 2px;
         color: #fff;
+    }
+
+    .card {
+        margin-bottom: 5px !important;
     }
 </style>
 <style>

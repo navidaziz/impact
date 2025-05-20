@@ -114,7 +114,11 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div id="cropsYield" style="width: 100%; "></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="cropsYield" style="width: 100%; height:330px"></div>
+            </div>
+        </div>
         <script>
             Highcharts.chart('cropsYield', {
                 chart: {
@@ -155,7 +159,11 @@
     </div>
 
     <div class="col-md-6">
-        <div id="CcropYieldChart" style="width: 100%; height: 300px;"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="CcropYieldChart" style="width: 100%; height: 300px;"></div>
+            </div>
+        </div>
         <script>
             Highcharts.chart('CcropYieldChart', {
                 chart: {
@@ -216,7 +224,11 @@
         </script>
     </div>
     <div class="col-md-6">
-        <div id="CcropYieldChartPercentage" style="width: 100%; height: 300px;"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="CcropYieldChartPercentage" style="width: 100%; height: 300px;"></div>
+            </div>
+        </div>
         <script>
             Highcharts.chart('CcropYieldChartPercentage', {
                 chart: {
@@ -295,8 +307,8 @@
                             <?php
                             $weighted_average = [];
                             $total = 0;
-                            $componentData['Percentage Increase'] = [
-                                'name' => 'Percentage Increase',
+                            $componentData['Increase %'] = [
+                                'name' => 'Increase %',
                                 'data' => []
                             ];
                             foreach ($crops as $crop) {
@@ -421,9 +433,9 @@
                                     <th style="text-align: center;"><?php echo number_format(round($value['per_increase'] / $value['total'], 2), 2); ?></th>
                                 <?php
                                     if ($value['per_increase']) {
-                                        $componentData['Percentage Increase']['data'][] = $value['per_increase'] / $value['total'];
+                                        $componentData['Increase %']['data'][] = $value['per_increase'] / $value['total'];
                                     } else {
-                                        $componentData['Percentage Increase']['data'][] = 0;
+                                        $componentData['Increase %']['data'][] = 0;
                                     }
                                 } ?>
                             </tr>
@@ -437,7 +449,11 @@
 
     </div>
     <div class="col-md-4">
-        <div id="ComponentAverageIncrese" style="width: 100; height:300px"></div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="ComponentAverageIncrese" style="width: 100; height:300px"></div>
+            </div>
+        </div>
 
         <script>
             Highcharts.chart('ComponentAverageIncrese', {
@@ -450,7 +466,7 @@
                 xAxis: {
                     categories: <?php
                                 $componentNames = array_column($components, 'component');
-                                $componentNames[] = 'Percentage Incress'; // Add "Overall" to the end
+                                $componentNames[] = 'Increase %'; // Add "Overall" to the end
                                 echo json_encode($componentNames);
                                 ?>,
                     title: {
@@ -479,8 +495,11 @@
         </script>
     </div>
     <div class="col-md-12">
-        <div id="cropYieldChart" style="width: 100%;"></div>
-
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="cropYieldChart" style="width: 100%;"></div>
+            </div>
+        </div>
 
         <script>
             Highcharts.chart('cropYieldChart', {

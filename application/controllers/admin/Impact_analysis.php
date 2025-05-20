@@ -170,6 +170,20 @@ class Impact_analysis extends CI_Controller
                   ORDER BY id ASC";
             break;
 
+         case 'Water_Losses_Raw':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                     actual_discharge_before_head,
+                     actual_discharge_before_tail,
+                     actual_discharge_after_head,
+                     actual_discharge_after_tail
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         case 'Water_Losses_Compiled':
+            $query = "SELECT * FROM `impact_surveys_water_losses` ORDER BY id ASC";
+            break;
+
          default:
             echo "File Name Not Found";
             exit();
