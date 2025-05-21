@@ -290,6 +290,7 @@
 
     <script>
         function get_report(funcation_name) {
+            $('#home').html('Please wait ... Loading ......');
             // Remove 'active' class from all list items
             $('.list-group-item').removeClass('active');
 
