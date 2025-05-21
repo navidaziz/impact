@@ -251,7 +251,7 @@ $regions = $this->db->query($query)->result();
 
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
-                <strong>Quarterly Achievement of the Field Visit conducted by the M&EC Team so far</strong>
+                <strong>Field Visit conducted by the M&EC Team so far</strong>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -303,6 +303,24 @@ $regions = $this->db->query($query)->result();
                     min: 0,
                     title: {
                         text: 'Number of Visits'
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{y} ',
+                            crop: false, // Don't hide labels outside the plot area
+                            overflow: 'none', // Prevent hiding when overflowing
+                            allowOverlap: true,
+                            rotation: -90,
+                            style: {
+                                fontSize: '9px' // Change to your desired font size
+                            }
+
+                        }
                     }
                 },
                 series: [{
@@ -410,6 +428,24 @@ $regions = $this->db->query($query)->result();
             tooltip: {
                 shared: true
             },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} ',
+                        crop: false, // Don't hide labels outside the plot area
+                        overflow: 'none', // Prevent hiding when overflowing
+                        allowOverlap: true,
+                        rotation: -90,
+                        style: {
+                            fontSize: '9px' // Change to your desired font size
+                        }
+
+                    }
+                }
+            },
             series: <?php echo json_encode($chartData, JSON_NUMERIC_CHECK); ?>
         });
     </script>
@@ -506,6 +542,24 @@ $regions = $this->db->query($query)->result();
             },
             tooltip: {
                 shared: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} ',
+                        crop: false, // Don't hide labels outside the plot area
+                        overflow: 'none', // Prevent hiding when overflowing
+                        allowOverlap: true,
+                        rotation: -90,
+                        style: {
+                            fontSize: '9px' // Change to your desired font size
+                        }
+
+                    }
+                }
             },
             series: <?php echo json_encode($chartData, JSON_NUMERIC_CHECK); ?>
         });
@@ -606,6 +660,24 @@ $regions = $this->db->query($query)->result();
             tooltip: {
                 shared: true
             },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} ',
+                        crop: false, // Don't hide labels outside the plot area
+                        overflow: 'none', // Prevent hiding when overflowing
+                        allowOverlap: true,
+                        rotation: -90,
+                        style: {
+                            fontSize: '9px' // Change to your desired font size
+                        }
+
+                    }
+                }
+            },
             series: <?php echo json_encode($chartData, JSON_NUMERIC_CHECK); ?>
         });
     </script>
@@ -644,7 +716,7 @@ $regions = $this->db->query($query)->result();
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{y} %',
+                        format: '{y} ',
                         crop: false, // Don't hide labels outside the plot area
                         overflow: 'none', // Prevent hiding when overflowing
                         allowOverlap: true,
@@ -726,7 +798,7 @@ $regions = $this->db->query($query)->result();
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{y} %',
+                        format: '{y} ',
                         crop: false, // Don't hide labels outside the plot area
                         overflow: 'none', // Prevent hiding when overflowing
                         allowOverlap: true,
@@ -798,6 +870,7 @@ $regions = $this->db->query($query)->result();
             tooltip: {
                 shared: true
             },
+
             series: [{
                     name: "Targets",
                     data: (function() {
