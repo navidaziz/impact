@@ -11,197 +11,229 @@ $query = "SELECT `region`, COUNT(*) as total FROM `impact_surveys` GROUP BY `reg
 $regions = $this->db->query($query)->result();
 ?>
 <div class="row">
-    <div class="col-md-9">
-        <table class="table table-bordered table_small2 ">
-            <thead>
-                <tr style="text-align: right;">
-                    <th colspan="<?php echo count($impact_quarters) + 2; ?>"><?php echo $title; ?></th>
-                </tr>
-                <tr>
-                    <th rowspan="3">Regions</th>
-                    <th colspan="<?php echo count($impact_quarters); ?>"><?php echo $description; ?></th>
-                    <th rowspan="3">Cumulative</th>
-                </tr>
-                <tr>
-                    <?php foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
-                            <button class="btn btn-warning btn-sm" style="font-size: 9px;" onclick="get_quarterly_field_visits_district_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
-                                <?php echo $impact_quarter->impact_quarter; ?> <?php if ($impact_quarter->status == 1) { ?> <span style="color: green !important; font-weight:bold">*</span> <?php } ?>
-                            </button>
-                        </th>
-                        </a>
-                    <?php } ?>
-                </tr>
-                <tr>
-                    <?php foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php echo date('M', strtotime($impact_quarter->quarter_start_date)); ?>
-                            -
-                            <?php echo date('M y', strtotime($impact_quarter->quarter_end_date)); ?>
-                        <?php } ?>
-                </tr>
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <strong>Quarterly Achievement of the Field Visit conducted by the M&EC Team so far</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover mb-0 table_small2" id="table_1" style="font-size: 12px;">
 
-            </thead>
-            <tbody>
-                <?php foreach ($regions as $region) { ?>
-                    <tr>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
-                            <button class="btn btn-link btn-sm" onclick="get_quarterly_field_visits_district_wise(0, '<?php echo $region->region; ?>')">
-                                <?php echo ucfirst($region->region) ?>
-                            </button>
-                        </th>
-                        <?php foreach ($impact_quarters as $impact_quarter) { ?>
-                            <?php
-                            $query = "SELECT COUNT(*) as total FROM `impact_surveys` WHERE region = ? AND impact_quarter_id = ?";
-                            $survey_count = $this->db->query($query, [$region->region, $impact_quarter->impact_quarter_id])->row();
-                            ?>
-                            <td <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
-                                <button class="btn btn-link btn-sm" onclick="get_quarterly_field_visits_district_wise(<?php echo $impact_quarter->impact_quarter_id; ?>, '<?php echo $region->region; ?>')">
+                        <thead>
+                            <tr style="text-align: right; dipplay:none">
+                                <th colspan="<?php echo count($impact_quarters) + 2; ?>"><?php echo $title; ?></th>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">Regions</th>
+                                <th colspan="<?php echo count($impact_quarters); ?>"><?php echo $description; ?></th>
+                                <th rowspan="3">Cumulative</th>
+                            </tr>
+                            <tr>
+                                <?php foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
+                                        <button class="btn btn-warning btn-sm" style="font-size: 9px;" onclick="get_quarterly_field_visits_district_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
+                                            <?php echo $impact_quarter->impact_quarter; ?> <?php if ($impact_quarter->status == 1) { ?> <span style="color: green !important; font-weight:bold">*</span> <?php } ?>
+                                        </button>
+                                    </th>
+                                    </a>
+                                <?php } ?>
+                            </tr>
+                            <tr>
+                                <?php foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php echo date('M', strtotime($impact_quarter->quarter_start_date)); ?>
+                                        -
+                                        <?php echo date('M y', strtotime($impact_quarter->quarter_end_date)); ?>
+                                    <?php } ?>
+                            </tr>
 
-                                    <?php echo $survey_count->total;  ?>
-                                </button>
-                            </td>
-                        <?php } ?>
-                        <?php
-                        $query = "SELECT COUNT(*) as total FROM `impact_surveys` WHERE region = ?";
-                        $survey_count = $this->db->query($query, [$region->region])->row();
-                        ?>
-                        <th>
-                            <button class="btn btn-link btn-sm" onclick="get_quarterly_field_visits_district_wise(0, '<?php echo $region->region; ?>')">
-                                <?php echo $survey_count->total;  ?>
-                            </button>
-                        </th>
-                    </tr>
-                <?php } ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th style="text-align: left;">Total</th>
-                    <?php
-                    $surveys = 0;
-                    foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php echo $impact_quarter->surveys;
-                                                                                                                        $surveys += $impact_quarter->surveys;  ?></th>
-                    <?php } ?>
-                    <td><?php echo $surveys;  ?></td>
-                </tr>
-                <tr>
-                    <th style="text-align: left;">Targets</th>
-                    <?php
-                    $targets = 0;
-                    foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php echo $impact_quarter->targets;
-                                                                                                                        $targets += $impact_quarter->targets;  ?></th>
-                    <?php } ?>
-                    <td><?php echo $targets;  ?></td>
-                </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($regions as $region) { ?>
+                                <tr>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
+                                        <button class="btn btn-link btn-sm" onclick="get_quarterly_field_visits_district_wise(0, '<?php echo $region->region; ?>')">
+                                            <?php echo ucfirst($region->region) ?>
+                                        </button>
+                                    </th>
+                                    <?php foreach ($impact_quarters as $impact_quarter) { ?>
+                                        <?php
+                                        $query = "SELECT COUNT(*) as total FROM `impact_surveys` WHERE region = ? AND impact_quarter_id = ?";
+                                        $survey_count = $this->db->query($query, [$region->region, $impact_quarter->impact_quarter_id])->row();
+                                        ?>
+                                        <td <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
+                                            <button class="btn btn-link btn-sm" onclick="get_quarterly_field_visits_district_wise(<?php echo $impact_quarter->impact_quarter_id; ?>, '<?php echo $region->region; ?>')">
 
-                <tr>
-                    <th style="text-align: left;">Difference</th>
-                    <?php
-                    $total_difference = 0;
-                    $diff = 0;
-                    foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
-                                                                                                                        if ($impact_quarter->targets and $impact_quarter->surveys) {
-                                                                                                                            $diff = $impact_quarter->surveys - $impact_quarter->targets;
-                                                                                                                            if ($diff >= 0) {
-                                                                                                                                if ($diff == 0) {
-                                                                                                                                    echo $diff;
-                                                                                                                                } else {
-                                                                                                                                    echo '<span style="color:green">+' . $diff . ' &#x25B2</span>';
-                                                                                                                                }
-                                                                                                                            } else {
-                                                                                                                                echo '<span style="color:red">' . $diff . ' &#x25BC</span>';
-                                                                                                                            }
+                                                <?php echo $survey_count->total;  ?>
+                                            </button>
+                                        </td>
+                                    <?php } ?>
+                                    <?php
+                                    $query = "SELECT COUNT(*) as total FROM `impact_surveys` WHERE region = ?";
+                                    $survey_count = $this->db->query($query, [$region->region])->row();
+                                    ?>
+                                    <th>
+                                        <button class="btn btn-link btn-sm" onclick="get_quarterly_field_visits_district_wise(0, '<?php echo $region->region; ?>')">
+                                            <?php echo $survey_count->total;  ?>
+                                        </button>
+                                    </th>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="text-align: left;">Total</th>
+                                <?php
+                                $surveys = 0;
+                                foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php echo $impact_quarter->surveys;
+                                                                                                                                    $surveys += $impact_quarter->surveys;  ?></th>
+                                <?php } ?>
+                                <td><?php echo $surveys;  ?></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: left;">Targets</th>
+                                <?php
+                                $targets = 0;
+                                foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php echo $impact_quarter->targets;
+                                                                                                                                    $targets += $impact_quarter->targets;  ?></th>
+                                <?php } ?>
+                                <td><?php echo $targets;  ?></td>
+                            </tr>
 
-                                                                                                                            $total_difference += $diff;
-                                                                                                                        } ?></th>
-                    <?php } ?>
-                    <td><?php echo $targets - $surveys;  ?></td>
-                </tr>
-                <tr>
-                    <th style="text-align: left;">Targets Cumulative</th>
-                    <?php
-                    foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
-                                                                                                                        if ($impact_quarter->targets and $impact_quarter->surveys) {
-                                                                                                                            echo $impact_quarter->cumulative_targets;
-                                                                                                                        } ?></th>
-                    <?php } ?>
-                    <td></td>
-                </tr>
+                            <tr>
+                                <th style="text-align: left;">Difference</th>
+                                <?php
+                                $total_difference = 0;
+                                $diff = 0;
+                                foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
+                                                                                                                                    if ($impact_quarter->targets and $impact_quarter->surveys) {
+                                                                                                                                        $diff = $impact_quarter->surveys - $impact_quarter->targets;
+                                                                                                                                        if ($diff >= 0) {
+                                                                                                                                            if ($diff == 0) {
+                                                                                                                                                echo $diff;
+                                                                                                                                            } else {
+                                                                                                                                                echo '<span style="color:green">+' . $diff . ' &#x25B2</span>';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo '<span style="color:red">' . $diff . ' &#x25BC</span>';
+                                                                                                                                        }
 
-                <tr>
-                    <th style="text-align: left;">Survey Cumulative</th>
-                    <?php
-                    foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
-                                                                                                                        if ($impact_quarter->targets and $impact_quarter->surveys) {
-                                                                                                                            echo $impact_quarter->cumulative_surveys;
-                                                                                                                        } ?></th>
-                    <?php } ?>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th style="text-align: left;">Cumulative Difference</th>
-                    <?php
-                    foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
-                                                                                                                        if ($impact_quarter->targets and $impact_quarter->surveys) {
-                                                                                                                            $diff = $impact_quarter->cumulative_surveys - $impact_quarter->cumulative_targets;
-                                                                                                                            if ($diff >= 0) {
-                                                                                                                                if ($diff == 0) {
-                                                                                                                                    echo $diff;
-                                                                                                                                } else {
-                                                                                                                                    echo '<span style="color:green">+' . $diff . ' &#x25B2</span>';
-                                                                                                                                }
-                                                                                                                            } else {
-                                                                                                                                echo '<span style="color:red">' . $diff . ' &#x25BC</span>';
-                                                                                                                            }
-                                                                                                                        } ?></th>
-                    <?php } ?>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <?php foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
-                            <button class="btn btn-warning btn-sm" style="font-size: 9px;" onclick="get_quarterly_component_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
-                                Components
-                            </button>
-                        </th>
-                        </a>
-                    <?php } ?>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <?php foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
-                            <button class="btn btn-danger btn-sm" style="font-size: 9px;" onclick="get_quarterly_sub_component_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
-                                Sub-Components
-                            </button>
-                        </th>
-                        </a>
-                    <?php } ?>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <?php foreach ($impact_quarters as $impact_quarter) { ?>
-                        <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
-                            <button class="btn btn-success btn-sm" style="font-size: 9px;" onclick="get_quarterly_categories_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
-                                Categories
-                            </button>
-                        </th>
-                        </a>
-                    <?php } ?>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
+                                                                                                                                        $total_difference += $diff;
+                                                                                                                                    } ?></th>
+                                <?php } ?>
+                                <td><?php echo $targets - $surveys;  ?></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: left;">Targets Cumulative</th>
+                                <?php
+                                foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
+                                                                                                                                    if ($impact_quarter->targets and $impact_quarter->surveys) {
+                                                                                                                                        echo $impact_quarter->cumulative_targets;
+                                                                                                                                    } ?></th>
+                                <?php } ?>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <th style="text-align: left;">Survey Cumulative</th>
+                                <?php
+                                foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
+                                                                                                                                    if ($impact_quarter->targets and $impact_quarter->surveys) {
+                                                                                                                                        echo $impact_quarter->cumulative_surveys;
+                                                                                                                                    } ?></th>
+                                <?php } ?>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: left;">Cumulative Difference</th>
+                                <?php
+                                foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>><?php
+                                                                                                                                    if ($impact_quarter->targets and $impact_quarter->surveys) {
+                                                                                                                                        $diff = $impact_quarter->cumulative_surveys - $impact_quarter->cumulative_targets;
+                                                                                                                                        if ($diff >= 0) {
+                                                                                                                                            if ($diff == 0) {
+                                                                                                                                                echo $diff;
+                                                                                                                                            } else {
+                                                                                                                                                echo '<span style="color:green">+' . $diff . ' &#x25B2</span>';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo '<span style="color:red">' . $diff . ' &#x25BC</span>';
+                                                                                                                                        }
+                                                                                                                                    } ?></th>
+                                <?php } ?>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <?php foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
+                                        <button class="btn btn-warning btn-sm" style="font-size: 9px;" onclick="get_quarterly_component_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
+                                            Components
+                                        </button>
+                                    </th>
+                                    </a>
+                                <?php } ?>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <?php foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
+                                        <button class="btn btn-danger btn-sm" style="font-size: 9px;" onclick="get_quarterly_sub_component_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
+                                            Sub-Compo.
+                                        </button>
+                                    </th>
+                                    </a>
+                                <?php } ?>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <?php foreach ($impact_quarters as $impact_quarter) { ?>
+                                    <th <?php if ($impact_quarter->status == 1) { ?> style="background-color: #7EE3AD;" <?php } ?>>
+                                        <button class="btn btn-success btn-sm" style="font-size: 9px;" onclick="get_quarterly_categories_wise(<?php echo $impact_quarter->impact_quarter_id; ?>)">
+                                            Categories
+                                        </button>
+                                    </th>
+                                    </a>
+                                <?php } ?>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-3">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="Impact_Surveys_by_Region_and_Quarter"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" style="display: none;">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="Trend_Analysis_Targets_vs_Achievements"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="Trend_Analysis_Targets_vs_Achievements_cummulative"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
         <?php
         $query = "SELECT field_monitor, COUNT(*) as total FROM `impact_surveys` GROUP BY field_monitor ORDER BY total DESC;";
         $field_monitors = $this->db->query($query)->result();
@@ -217,32 +249,46 @@ $regions = $this->db->query($query)->result();
 
         ?>
 
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <strong>Quarterly Achievement of the Field Visit conducted by the M&EC Team so far</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover mb-0" id="table_1" style="font-size: 12px;">
+                        <tr>
+                            <th>#</th>
+                            <th>Field Staff</th>
+                            <th>Field Visit</th>
+                        </tr>
+                        <?php
+                        $count = 1;
+                        foreach ($field_monitors as $field_monitor) { ?>
+                            <tr>
+                                <th><?php echo $count++ ?></th>
+                                <th><?php echo $field_monitor->field_monitor ?></th>
+                                <th><?php echo $field_monitor->total ?></th>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <table class="table table-striped table_small">
-            <tr>
-                <th>#</th>
-                <th>Field Staff</th>
-                <th>Field Visit</th>
-            </tr>
-            <?php
-            $count = 1;
-            foreach ($field_monitors as $field_monitor) { ?>
-                <tr>
-                    <th><?php echo $count++ ?></th>
-                    <th><?php echo $field_monitor->field_monitor ?></th>
-                    <th><?php echo $field_monitor->total ?></th>
-                </tr>
-            <?php } ?>
-        </table>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="field_staff_visits" style="width:100%; "></div>
 
+            </div>
+        </div>
         <!-- Container for Highcharts -->
-        <div id="field_staff_visits" style="width:100%; height:250px;"></div>
 
         <script>
             Highcharts.chart('field_staff_visits', {
                 chart: {
-                    type: 'bar',
-                    height: 250
+                    type: 'bar'
                 },
                 title: {
                     text: ''
@@ -266,19 +312,7 @@ $regions = $this->db->query($query)->result();
                 }]
             });
         </script>
-
-
     </div>
-    <div class="col-md-4">
-        <div id="Impact_Surveys_by_Region_and_Quarter"></div>
-    </div>
-    <div class="col-md-4">
-        <div id="Trend_Analysis_Targets_vs_Achievements"></div>
-    </div>
-    <div class="col-md-4">
-        <div id="Trend_Analysis_Targets_vs_Achievements_cummulative"></div>
-    </div>
-
 </div>
 
 <div class="row">
@@ -582,7 +616,7 @@ $regions = $this->db->query($query)->result();
                 type: "column"
             },
             title: {
-                text: "Impact Surveys by Region and Quarter"
+                text: "Impact Surveys by Region Wise"
             },
             xAxis: {
                 categories: [
@@ -606,8 +640,22 @@ $regions = $this->db->query($query)->result();
             },
             plotOptions: {
                 column: {
-                    //stacking: "normal"
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} %',
+                        crop: false, // Don't hide labels outside the plot area
+                        overflow: 'none', // Prevent hiding when overflowing
+                        allowOverlap: true,
+                        rotation: -90,
+                        style: {
+                            fontSize: '9px' // Change to your desired font size
+                        }
+
+                    }
                 }
+
             },
             series: [
                 <?php
@@ -627,7 +675,7 @@ $regions = $this->db->query($query)->result();
                 <?php }
                 } ?> {
                     name: "Cumulative",
-                    type: "spline",
+                    type: "bar",
                     data: [
                         <?php foreach ($regions as $region) { ?>
                             <?php echo $region->total . ","; ?>
@@ -671,6 +719,25 @@ $regions = $this->db->query($query)->result();
             },
             tooltip: {
                 shared: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} %',
+                        crop: false, // Don't hide labels outside the plot area
+                        overflow: 'none', // Prevent hiding when overflowing
+                        allowOverlap: true,
+                        rotation: -90,
+                        style: {
+                            fontSize: '9px' // Change to your desired font size
+                        }
+
+                    }
+                }
+
             },
             series: [{
                     name: "Targets",

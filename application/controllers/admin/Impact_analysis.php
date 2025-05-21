@@ -146,6 +146,34 @@ class Impact_analysis extends CI_Controller
                   ORDER BY id ASC";
             break;
 
+         case 'Cropping_Intensity_Raw':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category, 
+                  `rabi_crop_area_acres_before`,
+                  `zaid_rabi_crop_area_acres_before`,
+                  `kharif_crop_area_acres_before`,
+                  `zaid_kharif_crop_area_acres_before`,
+                  `sugarcane_crop_area_acres_before`,
+                  `area_intercropped_sugarcane_acres_before`,
+                  `orchard_area_acres_before`,
+                  `area_intercropped_orchards_acres_before`,
+                  `total_cultivable_command_area_acres_before`,
+                  `rabi_crop_area_acres_after`,
+                  `zaid_rabi_crop_area_acres_before`,
+                  `kharif_crop_area_acres_after`,
+                  `zaid_kharif_crop_area_acres_after`,
+                  `sugarcane_crop_area_acres_after`,
+                  `area_intercropped_sugarcane_acres_after`,
+                  `orchard_area_acres_after`,
+                  `area_intercropped_orchards_acres_after`,
+                  `total_cultivable_command_area_acres_after`  
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         case 'Cropping_Intensity_Compiled':
+            $query = "SELECT * FROM `impact_crop_intensity` ORDER BY id ASC";
+            break;
+
          case 'Crop_Yields':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
                      `wheat_yield_before`, `wheat_yield_after`, 
@@ -182,6 +210,23 @@ class Impact_analysis extends CI_Controller
 
          case 'Water_Losses_Compiled':
             $query = "SELECT * FROM `impact_surveys_water_losses` ORDER BY id ASC";
+            break;
+
+         case 'Water_Productivity_Raw':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                  design_discharge_head AS design_discharge_head,
+                  wheat_irrigation_times AS wheat_irrigation_times,
+                  wheat_irrigation_time_acre AS wheat_irrigation_time_acre,
+                  wheat_yield_after AS wheat_yield_after,
+                  maize_irrigation_times AS maize_irrigation_times,
+                  maize_irrigation_time_acre AS maize_irrigation_time_acre,
+                  maize_yield_after AS maize_yield_after
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         case 'Water_Productivity_Compiled':
+            $query = "SELECT * FROM `impact_survery_water_productivity` ORDER BY id ASC";
             break;
 
          default:
