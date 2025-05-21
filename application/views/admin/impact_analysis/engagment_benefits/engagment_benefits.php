@@ -1,7 +1,9 @@
 <h4>Labor Impact Analysis: Skilled and Unskilled Employment Changes</h4>
 <hr />
 
-
+<?php
+error_reporting(E_ALL);
+?>
 <div class="row">
     <div class="col-md-12">
         <?php
@@ -421,12 +423,12 @@ $overallData = [];
                                     GROUP BY `component`";
                             $result = $this->db->query($query)->row();
                             $laborData[$region->region][$component->component] = [
-                                'unskilled_before' => $result->unskilled_before ?? 0,
-                                'unskilled_after' => $result->unskilled_after ?? 0,
-                                'skilled_before' => $result->skilled_before ?? 0,
-                                'skilled_after' => $result->skilled_after ?? 0,
-                                'unskilled_increase' => $result->unskilled_increase ?? 0,
-                                'skilled_increase' => $result->skilled_increase ?? 0
+                                'unskilled_before' => $result->unskilled_before,
+                                'unskilled_after' => $result->unskilled_after,
+                                'skilled_before' => $result->skilled_before,
+                                'skilled_after' => $result->skilled_after,
+                                'unskilled_increase' => $result->unskilled_increase,
+                                'skilled_increase' => $result->skilled_increase
                             ];
                         ?>
 
@@ -459,12 +461,12 @@ $overallData = [];
                                     GROUP BY `component`";
                         $result = $this->db->query($query)->row();
                         $overallData[$component->component] = [
-                            'unskilled_before' => $result->unskilled_before ?? 0,
-                            'unskilled_after' => $result->unskilled_after ?? 0,
-                            'skilled_before' => $result->skilled_before ?? 0,
-                            'skilled_after' => $result->skilled_after ?? 0,
-                            'unskilled_increase' => $result->unskilled_increase ?? 0,
-                            'skilled_increase' => $result->skilled_increase ?? 0
+                            'unskilled_before' => $result->unskilled_before,
+                            'unskilled_after' => $result->unskilled_after,
+                            'skilled_before' => $result->skilled_before,
+                            'skilled_after' => $result->skilled_after,
+                            'unskilled_increase' => $result->unskilled_increase,
+                            'skilled_increase' => $result->skilled_increase
                         ];
 
                     ?>
