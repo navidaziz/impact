@@ -129,11 +129,11 @@ $components = $components_result->result();
                     text: 'Increase in Irrigated CCA Summary'
                 },
                 xAxis: {
-                    categories: ["Before", "After", "Increase", "Increase %"],
+                    categories: ["Before (Ha)", "After (Ha)", "Increase (Ha)", "Increase %"],
                 },
                 yAxis: {
                     title: {
-                        text: 'Area (Hectares)'
+                        text: 'Area (Hectares) Weighted Average'
                     }
                 },
                 plotOptions: {
@@ -141,7 +141,7 @@ $components = $components_result->result();
                         grouping: true,
                         dataLabels: {
                             enabled: true,
-                            format: '{point.y:.2f} %'
+                            format: '{point.y:.2f}'
                         }
                     }
                 },
@@ -237,7 +237,7 @@ $components = $components_result->result();
         // Percentage Increase Chart
         Highcharts.chart('increaseChart', {
             chart: {
-                type: 'bar'
+                type: 'spline'
             },
             title: {
                 text: 'Percentage Increase by Region'
@@ -261,7 +261,7 @@ $components = $components_result->result();
                 valueSuffix: '%'
             },
             plotOptions: {
-                bar: {
+                spline: {
                     dataLabels: {
                         enabled: true,
                         format: '{y}%'

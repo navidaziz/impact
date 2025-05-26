@@ -119,6 +119,14 @@ class Impact_analysis extends CI_Controller
       $this->data['description'] = '';
       $this->load->view('admin/impact_analysis/engagment_benefits/engagment_benefits', $this->data);
    }
+   public function impact_income()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/impact_income/impact_income', $this->data);
+   }
+
+
 
    public function env_and_social_management()
    {
@@ -228,6 +236,24 @@ class Impact_analysis extends CI_Controller
          case 'Water_Productivity_Compiled':
             $query = "SELECT * FROM `impact_survery_water_productivity` ORDER BY id ASC";
             break;
+
+         case 'Engagment_Benefits':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                 income_improved_per, 
+                 unskilled_labor_before,
+                 unskilled_labor_after,
+                 skilled_labor_before,
+                 skilled_labor_after
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+         case 'Income_Improvement':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                 income_improved_per
+                  ORDER BY id ASC";
+            break;
+
+
 
          default:
             echo "File Name Not Found";

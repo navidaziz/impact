@@ -266,7 +266,8 @@
                     <li class="list-group-item" id="water_productivity_list" onclick="get_report('water_productivity')">Water Productivity</li>
                     <li class="list-group-item" id="cropping_intensity_list" onclick="get_report('cropping_intensity')">Cropping Intensity</li>
                     <li class="list-group-item" id="beneficiaries_list" onclick="get_report('beneficiaries')">Beneficiaries</li>
-                    <li class="list-group-item" id="engagment_benefits_list" onclick="get_report('engagment_benefits')">Citizen Engagement & Benefits</li>
+                    <li class="list-group-item" id="impact_income_list" onclick="get_report('impact_income')">Citizen Income</li>
+                    <li class="list-group-item" id="engagment_benefits_list" onclick="get_report('engagment_benefits')">Employment Growth</li>
                     <li class="list-group-item" id="env_and_social_management_list" onclick="get_report('env_and_social_management')">Environmnetal & Social Management</li>
                     <li class="list-group-item" id="private_investment_list" onclick="get_report('private_investment')">Private Investment</li>
 
