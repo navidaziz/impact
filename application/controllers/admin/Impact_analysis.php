@@ -250,6 +250,7 @@ class Impact_analysis extends CI_Controller
          case 'Income_Improvement':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
                  income_improved_per
+                  FROM `impact_surveys` 
                   ORDER BY id ASC";
             break;
 
