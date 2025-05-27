@@ -1,4 +1,17 @@
-<h4>The Environmnetal & Social Management Compliance Analysis</h4>
+<div class="row">
+    <div class="col-md-8">
+        <h4>Impact Analysis: Environmnetal & Social Management Compliance</h4>
+        <small>Analysis of total <strong><?php
+                                            $query = "SELECT COUNT(*) as total FROM `impact_surveys`";
+                                            echo number_format($this->db->query($query)->row()->total);
+
+                                            ?></strong> Impact Surveys</small>
+    </div>
+    <div class="col-md-4" style="text-align: right;">
+        <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Engagment_Benefits'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data</a>
+        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Irrigated_CCA',['table_1', 'table_2', 'wheat', 'maize' , 'sugarcane' , 'vegetable' , 'orchard'], ['Summary', 'Crop & Component Wise' , 'Wheat', 'Maize' , 'Sugarcane' , 'Vegetable' , 'Orchard' ])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
+    </div>
+</div>
 <hr />
 
 <h4>Response on the Environmental Aspect of the KPIAIP Schemes</h4>
