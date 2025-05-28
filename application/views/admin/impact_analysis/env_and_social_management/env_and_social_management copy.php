@@ -67,7 +67,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`solid_waste_disposed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `solid_waste_disposed` IN ('Yes', 'No')";
+                        AND `solid_waste_disposed` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -81,7 +81,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`soil_disposed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `soil_disposed` IN ('Yes', 'No')";
+                        AND `soil_disposed` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -95,7 +95,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`construction_waste_disposed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `construction_waste_disposed` IN ('Yes', 'No')";
+                        AND `construction_waste_disposed` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -109,7 +109,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`env_quality_monitored` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `env_quality_monitored` IN ('Yes', 'No')";
+                        AND `env_quality_monitored` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -123,7 +123,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`standing_water` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `standing_water` IN ('Yes', 'No')";
+                        AND `standing_water` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -137,7 +137,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`distress_damage` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `distress_damage` IN ('Yes', 'No')";
+                        AND `distress_damage` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -156,7 +156,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`solid_waste_disposed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`solid_waste_disposed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `solid_waste_disposed` IN ('Yes', 'No')";
+                        WHERE `solid_waste_disposed` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -169,7 +169,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`soil_disposed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`soil_disposed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `soil_disposed` IN ('Yes', 'No')";
+                        WHERE `soil_disposed` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -182,7 +182,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`construction_waste_disposed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`construction_waste_disposed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `construction_waste_disposed` IN ('Yes', 'No')";
+                        WHERE `construction_waste_disposed` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -195,7 +195,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`env_quality_monitored` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`env_quality_monitored` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `env_quality_monitored` IN ('Yes', 'No')";
+                        WHERE `env_quality_monitored` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -208,7 +208,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`standing_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`standing_water` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `standing_water` IN ('Yes', 'No')";
+                        WHERE `standing_water` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -221,7 +221,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`distress_damage` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`distress_damage` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `distress_damage` IN ('Yes', 'No')";
+                        WHERE `distress_damage` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -261,7 +261,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `solid_waste_disposed` IN ('Yes', 'No')";
+                    AND `solid_waste_disposed` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -270,7 +270,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`solid_waste_disposed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `solid_waste_disposed` IN ('Yes', 'No')
+                    WHERE `solid_waste_disposed` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -285,7 +285,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `soil_disposed` IN ('Yes', 'No')";
+                    AND `soil_disposed` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -294,7 +294,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`soil_disposed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `soil_disposed` IN ('Yes', 'No')
+                    WHERE `soil_disposed` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -309,7 +309,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `construction_waste_disposed` IN ('Yes', 'No')";
+                    AND `construction_waste_disposed` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -318,7 +318,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`construction_waste_disposed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `construction_waste_disposed` IN ('Yes', 'No')
+                    WHERE `construction_waste_disposed` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -333,7 +333,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `env_quality_monitored` IN ('Yes', 'No')";
+                    AND `env_quality_monitored` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -342,7 +342,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`env_quality_monitored` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `env_quality_monitored` IN ('Yes', 'No')
+                    WHERE `env_quality_monitored` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -357,7 +357,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `standing_water` IN ('Yes', 'No')";
+                    AND `standing_water` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -366,7 +366,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`standing_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `standing_water` IN ('Yes', 'No')
+                    WHERE `standing_water` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -381,7 +381,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `distress_damage` IN ('Yes', 'No')";
+                    AND `distress_damage` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -390,7 +390,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`distress_damage` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `distress_damage` IN ('Yes', 'No')
+                    WHERE `distress_damage` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -438,7 +438,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`trees_cut` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `trees_cut` IN ('Yes', 'No')";
+                        AND `trees_cut` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -449,7 +449,7 @@ $regions = $this->db->query($query)->result();
                         SUM(trees_cut_count) AS total
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `trees_cut_count` IN ('Yes', 'No')";
+                        AND `trees_cut_count` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->total; ?> </td>
@@ -459,7 +459,7 @@ $regions = $this->db->query($query)->result();
                         SUM(trees_planted_count) AS total
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `trees_planted_count` IN ('Yes', 'No')";
+                        AND `trees_planted_count` IS NOT NULL";
                         $result = $this->db->query($query)->row();
                         ?>
                         <td><?php echo $result->total; ?> </td>
@@ -477,7 +477,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`trees_cut` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`trees_cut` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE  `trees_cut` IN ('Yes', 'No')";
+                        WHERE  `trees_cut` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
@@ -487,7 +487,7 @@ $regions = $this->db->query($query)->result();
                     $query = "SELECT 
                         SUM(trees_cut_count) AS total
                         FROM `impact_surveys`
-                        WHERE `trees_cut_count` IN ('Yes', 'No')";
+                        WHERE `trees_cut_count` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->total; ?> </td>
@@ -496,7 +496,7 @@ $regions = $this->db->query($query)->result();
                     $query = "SELECT 
                         SUM(trees_planted_count) AS total
                         FROM `impact_surveys`
-                        WHERE `trees_planted_count` IN ('Yes', 'No')";
+                        WHERE `trees_planted_count` IS NOT NULL";
                     $result = $this->db->query($query)->row();
                     ?>
                     <td><?php echo $result->total; ?> </td>
@@ -538,7 +538,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `trees_cut` IN ('Yes', 'No')";
+                    AND `trees_cut` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
@@ -547,7 +547,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`trees_cut` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `trees_cut` IN ('Yes', 'No')
+                    WHERE `trees_cut` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -563,7 +563,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `trees_cut_count` IN ('Yes', 'No')";
+                    AND `trees_cut_count` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->total; ?></td>
@@ -572,7 +572,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     SUM(trees_cut_count) AS total
                     FROM `impact_surveys`
-                    WHERE `trees_cut_count` IN ('Yes', 'No')
+                    WHERE `trees_cut_count` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -587,7 +587,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `trees_planted_count` IN ('Yes', 'No')";
+                    AND `trees_planted_count` IS NOT NULL";
                             $result = $this->db->query($query)->row();
                         ?>
                             <td><?php echo $result->total; ?></td>
@@ -596,7 +596,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     SUM(trees_planted_count) AS total
                     FROM `impact_surveys`
-                    WHERE `trees_planted_count` IN ('Yes', 'No')
+                    WHERE `trees_planted_count` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row();
                         ?>
@@ -659,7 +659,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pest_mgmt_knowledge` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `pest_mgmt_knowledge` IN ('Yes', 'No')";
+                        AND `pest_mgmt_knowledge` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -673,7 +673,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pesticide_storage_handling` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `pesticide_storage_handling` IN ('Yes', 'No')";
+                        AND `pesticide_storage_handling` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -687,7 +687,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`surplus_pesticide_mgmt` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `surplus_pesticide_mgmt` IN ('Yes', 'No')";
+                        AND `surplus_pesticide_mgmt` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -701,7 +701,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`green_manure_soil_practice` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `green_manure_soil_practice` IN ('Yes', 'No')";
+                        AND `green_manure_soil_practice` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -715,7 +715,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pesticide_impact_observed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `pesticide_impact_observed` IN ('Yes', 'No')";
+                        AND `pesticide_impact_observed` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -729,7 +729,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`env_quality_monitoring` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `env_quality_monitoring` IN ('Yes', 'No')";
+                        AND `env_quality_monitoring` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -743,7 +743,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pesticide_timeframe_understanding` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `pesticide_timeframe_understanding` IN ('Yes', 'No')";
+                        AND `pesticide_timeframe_understanding` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
                         <td><?php echo $result->no_percentage; ?> %</td>
@@ -761,7 +761,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pest_mgmt_knowledge` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`pest_mgmt_knowledge` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `pest_mgmt_knowledge` IN ('Yes', 'No')";
+                        WHERE `pest_mgmt_knowledge` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -774,7 +774,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pesticide_storage_handling` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`pesticide_storage_handling` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `pesticide_storage_handling` IN ('Yes', 'No')";
+                        WHERE `pesticide_storage_handling` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -787,7 +787,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`surplus_pesticide_mgmt` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`surplus_pesticide_mgmt` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `surplus_pesticide_mgmt` IN ('Yes', 'No')";
+                        WHERE `surplus_pesticide_mgmt` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -800,7 +800,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`green_manure_soil_practice` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`green_manure_soil_practice` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `green_manure_soil_practice` IN ('Yes', 'No')";
+                        WHERE `green_manure_soil_practice` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -813,7 +813,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pesticide_impact_observed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`pesticide_impact_observed` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `pesticide_impact_observed` IN ('Yes', 'No')";
+                        WHERE `pesticide_impact_observed` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -826,7 +826,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`env_quality_monitoring` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`env_quality_monitoring` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `env_quality_monitoring` IN ('Yes', 'No')";
+                        WHERE `env_quality_monitoring` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -839,7 +839,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`pesticide_timeframe_understanding` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage,
                         ROUND(SUM(IF(`pesticide_timeframe_understanding` = 'No', 1, 0)) / COUNT(*) * 100, 2) AS no_percentage
                         FROM `impact_surveys`
-                        WHERE `pesticide_timeframe_understanding` IN ('Yes', 'No')";
+                        WHERE `pesticide_timeframe_understanding` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
                     <td><?php echo $result->no_percentage; ?> %</td>
@@ -878,7 +878,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `pest_mgmt_knowledge` IN ('Yes', 'No')";
+                        AND `pest_mgmt_knowledge` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -886,7 +886,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`pest_mgmt_knowledge` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `pest_mgmt_knowledge` IN ('Yes', 'No')
+                    WHERE `pest_mgmt_knowledge` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -901,7 +901,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `pesticide_storage_handling` IN ('Yes', 'No')";
+                        AND `pesticide_storage_handling` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -909,7 +909,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`pesticide_storage_handling` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `pesticide_storage_handling` IN ('Yes', 'No')
+                    WHERE `pesticide_storage_handling` IS NOT NULL
                     AND component = '" . $component->component . "'
                     ";
                         $result = $this->db->query($query)->row(); ?>
@@ -925,7 +925,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `surplus_pesticide_mgmt` IN ('Yes', 'No')";
+                        AND `surplus_pesticide_mgmt` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -933,7 +933,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`surplus_pesticide_mgmt` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `surplus_pesticide_mgmt` IN ('Yes', 'No')
+                    WHERE `surplus_pesticide_mgmt` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -948,7 +948,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `green_manure_soil_practice` IN ('Yes', 'No')";
+                        AND `green_manure_soil_practice` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -956,7 +956,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`green_manure_soil_practice` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `green_manure_soil_practice` IN ('Yes', 'No')
+                    WHERE `green_manure_soil_practice` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -971,7 +971,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `pesticide_impact_observed` IN ('Yes', 'No')";
+                        AND `pesticide_impact_observed` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -979,7 +979,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`pesticide_impact_observed` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `pesticide_impact_observed` IN ('Yes', 'No')
+                    WHERE `pesticide_impact_observed` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -994,7 +994,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `env_quality_monitoring` IN ('Yes', 'No')";
+                        AND `env_quality_monitoring` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1002,7 +1002,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`env_quality_monitoring` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `env_quality_monitoring` IN ('Yes', 'No')
+                    WHERE `env_quality_monitoring` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1017,7 +1017,7 @@ $regions = $this->db->query($query)->result();
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
                         AND component = '" . $component->component . "'
-                        AND `pesticide_timeframe_understanding` IN ('Yes', 'No')";
+                        AND `pesticide_timeframe_understanding` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1025,7 +1025,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`pesticide_timeframe_understanding` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `pesticide_timeframe_understanding` IN ('Yes', 'No')
+                    WHERE `pesticide_timeframe_understanding` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1087,7 +1087,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`watercourse_women_benefit` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `watercourse_women_benefit` IN ('Yes', 'No')";
+                        AND `watercourse_women_benefit` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %
                             <br />
@@ -1101,7 +1101,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`clean_water_access` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `clean_water_access` IN ('Yes', 'No')";
+                        AND `clean_water_access` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1112,7 +1112,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`kitchen_gardening` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `kitchen_gardening` IN ('Yes', 'No')";
+                        AND `kitchen_gardening` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1123,7 +1123,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`drinking_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `drinking_water` IN ('Yes', 'No')";
+                        AND `drinking_water` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1134,7 +1134,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`bathing_clean_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `bathing_clean_water` IN ('Yes', 'No')";
+                        AND `bathing_clean_water` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1145,7 +1145,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`clothes_washing_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `clothes_washing_water` IN ('Yes', 'No')";
+                        AND `clothes_washing_water` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1157,7 +1157,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`women_time_social_economic` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `women_time_social_economic` IN ('Yes', 'No')";
+                        AND `women_time_social_economic` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1169,7 +1169,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`women_easy_irrigation` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `women_easy_irrigation` IN ('Yes', 'No')";
+                        AND `women_easy_irrigation` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1180,7 +1180,7 @@ $regions = $this->db->query($query)->result();
                         ROUND(SUM(IF(`road_accessible` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
                         WHERE region = '" . $region->region . "'
-                        AND `road_accessible` IN ('Yes', 'No')";
+                        AND `road_accessible` IS NOT NULL";
                         $result = $this->db->query($query)->row();  ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1197,7 +1197,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`watercourse_women_benefit` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`watercourse_women_benefit` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE `watercourse_women_benefit` IN ('Yes', 'No')";
+                        WHERE `watercourse_women_benefit` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %
                         <br />
@@ -1210,7 +1210,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`clean_water_access` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`clean_water_access` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `clean_water_access` IN ('Yes', 'No')";
+                        WHERE  `clean_water_access` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1220,7 +1220,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`kitchen_gardening` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`kitchen_gardening` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `kitchen_gardening` IN ('Yes', 'No')";
+                        WHERE  `kitchen_gardening` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1230,7 +1230,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`drinking_water` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`drinking_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `drinking_water` IN ('Yes', 'No')";
+                        WHERE  `drinking_water` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1240,7 +1240,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`bathing_clean_water` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`bathing_clean_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `bathing_clean_water` IN ('Yes', 'No')";
+                        WHERE  `bathing_clean_water` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1250,7 +1250,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`clothes_washing_water` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`clothes_washing_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `clothes_washing_water` IN ('Yes', 'No')";
+                        WHERE  `clothes_washing_water` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1261,7 +1261,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`women_time_social_economic` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`women_time_social_economic` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `women_time_social_economic` IN ('Yes', 'No')";
+                        WHERE  `women_time_social_economic` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1272,7 +1272,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`women_easy_irrigation` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`women_easy_irrigation` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE  `women_easy_irrigation` IN ('Yes', 'No')";
+                        WHERE  `women_easy_irrigation` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1282,7 +1282,7 @@ $regions = $this->db->query($query)->result();
                         SUM(IF(`road_accessible` = 'Yes', 1, 0)) AS yes_count,
                         ROUND(SUM(IF(`road_accessible` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                         FROM `impact_surveys`
-                        WHERE `road_accessible` IN ('Yes', 'No')";
+                        WHERE `road_accessible` IS NOT NULL";
                     $result = $this->db->query($query)->row();  ?>
                     <td><?php echo $result->yes_percentage; ?> %</td>
 
@@ -1324,7 +1324,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `watercourse_women_benefit` IN ('Yes', 'No')";
+                    AND `watercourse_women_benefit` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %<br /><small><?php echo $result->yes_count; ?></small></td>
                         <?php } ?>
@@ -1334,7 +1334,7 @@ $regions = $this->db->query($query)->result();
                     SUM(IF(`watercourse_women_benefit` = 'Yes', 1, 0)) AS yes_count,
                     ROUND(SUM(IF(`watercourse_women_benefit` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `watercourse_women_benefit` IN ('Yes', 'No')
+                    WHERE `watercourse_women_benefit` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %<br /><small><?php echo $result->yes_count; ?></small></td>
@@ -1348,7 +1348,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `clean_water_access` IN ('Yes', 'No')";
+                    AND `clean_water_access` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1356,7 +1356,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`clean_water_access` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `clean_water_access` IN ('Yes', 'No')
+                    WHERE `clean_water_access` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1370,7 +1370,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `kitchen_gardening` IN ('Yes', 'No')";
+                    AND `kitchen_gardening` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1378,7 +1378,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`kitchen_gardening` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `kitchen_gardening` IN ('Yes', 'No')
+                    WHERE `kitchen_gardening` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1392,7 +1392,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `drinking_water` IN ('Yes', 'No')";
+                    AND `drinking_water` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1400,7 +1400,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`drinking_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `drinking_water` IN ('Yes', 'No')
+                    WHERE `drinking_water` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1414,7 +1414,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `bathing_clean_water` IN ('Yes', 'No')";
+                    AND `bathing_clean_water` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1422,7 +1422,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`bathing_clean_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `bathing_clean_water` IN ('Yes', 'No')
+                    WHERE `bathing_clean_water` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1436,7 +1436,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `clothes_washing_water` IN ('Yes', 'No')";
+                    AND `clothes_washing_water` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1444,7 +1444,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`clothes_washing_water` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `clothes_washing_water` IN ('Yes', 'No')
+                    WHERE `clothes_washing_water` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1458,7 +1458,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `women_time_social_economic` IN ('Yes', 'No')";
+                    AND `women_time_social_economic` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1466,7 +1466,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`women_time_social_economic` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `women_time_social_economic` IN ('Yes', 'No')
+                    WHERE `women_time_social_economic` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1480,7 +1480,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `women_easy_irrigation` IN ('Yes', 'No')";
+                    AND `women_easy_irrigation` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1488,7 +1488,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`women_easy_irrigation` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `women_easy_irrigation` IN ('Yes', 'No')
+                    WHERE `women_easy_irrigation` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>
@@ -1502,7 +1502,7 @@ $regions = $this->db->query($query)->result();
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
                     AND component = '" . $component->component . "'
-                    AND `road_accessible` IN ('Yes', 'No')";
+                    AND `road_accessible` IS NOT NULL";
                             $result = $this->db->query($query)->row(); ?>
                             <td><?php echo $result->yes_percentage; ?> %</td>
                         <?php } ?>
@@ -1510,7 +1510,7 @@ $regions = $this->db->query($query)->result();
                         $query = "SELECT 
                     ROUND(SUM(IF(`road_accessible` = 'Yes', 1, 0)) / COUNT(*) * 100, 2) AS yes_percentage
                     FROM `impact_surveys`
-                    WHERE `road_accessible` IN ('Yes', 'No')
+                    WHERE `road_accessible` IS NOT NULL
                     AND component = '" . $component->component . "'";
                         $result = $this->db->query($query)->row(); ?>
                         <td><?php echo $result->yes_percentage; ?> %</td>

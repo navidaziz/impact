@@ -253,9 +253,45 @@ class Impact_analysis extends CI_Controller
                   FROM `impact_surveys` 
                   ORDER BY id ASC";
             break;
+         case 'Env_And_Social':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                 `watercourse_women_benefit`,
+                  `clean_water_access`,
+                  `kitchen_gardening`,
+                  `drinking_water`,
+                  `bathing_clean_water`,
+                  `clothes_washing_water`,
+                  `women_time_social_economic`,
+                  `women_easy_irrigation`,
+                  `road_accessible`,
+                  `solid_waste_disposed`,
+                  `soil_disposed`,
+                  `construction_waste_disposed`,
+                  `trees_cut`,
+                  `trees_cut_count`,
+                  `trees_planted`,
+                  `trees_planted_count`,
+                  `env_quality_monitored`,
+                  `standing_water`,
+                  `distress_damage`,
+                  `pest_mgmt_knowledge`,
+                  `pesticide_storage_handling`,
+                  `surplus_pesticide_mgmt`,
+                  `green_manure_soil_practice`,
+                  `pesticide_impact_observed`,
+                  `env_quality_monitoring`,
+                  `pesticide_timeframe_understanding`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
 
-
-
+         case 'Private_Investment':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+            actual_cost,
+            community_share
+            FROM `impact_surveys` 
+            ORDER BY id ASC";
+            break;
          default:
             echo "File Name Not Found";
             exit();
