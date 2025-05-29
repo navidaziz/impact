@@ -8,8 +8,8 @@
                                             ?></strong> Impact Surveys</small>
     </div>
     <div class="col-md-6" style="text-align: right;">
-        <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Engagment_Benefits'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data</a>
-        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Irrigated_CCA',['table_1', 'table_2', 'wheat', 'maize' , 'sugarcane' , 'vegetable' , 'orchard'], ['Summary', 'Crop & Component Wise' , 'Wheat', 'Maize' , 'Sugarcane' , 'Vegetable' , 'Orchard' ])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
+        <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Employment_Growth'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data</a>
+        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Employment_Growth',['table_1', 'table_2', 'table_3', 'table_4'], ['Summary', 'Region and Component Wise' , 'Region and Sub Component Wise', 'Region and Categories Wise'])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
     </div>
 </div>
 <hr />
@@ -33,7 +33,7 @@ $components = $components_result->result();
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="table_1">
                         <thead>
                             <tr style="display: none;">
                                 <th colspan="10" style="text-align: center;">
@@ -257,7 +257,7 @@ $components = $components_result->result();
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table_medium">
+                    <table class="table table-bordered table-striped table_medium" id="table_2">
                         <thead>
                             <tr style="display: none;">
                                 <th colspan="<?php echo (2 + (COUNT($components) * 9)); ?>" style="text-align: center;">
@@ -416,7 +416,7 @@ $sub_components = $sub_components_result->result();
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table_medium">
+                    <table class="table table-bordered table-striped table_medium" id="table_3">
                         <thead>
                             <tr style="display: none;">
                                 <th colspan="<?php echo (2 + (COUNT($sub_components) * 9)); ?>" style="text-align: center;">
@@ -574,7 +574,7 @@ $categorys = $categorys_result->result();
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table_medium">
+                    <table class="table table-bordered table-striped table_medium" id="table_4">
                         <thead>
                             <tr style="display: none;">
                                 <th colspan="<?php echo (2 + (COUNT($categorys) * 9)); ?>" style="text-align: center;">

@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-6" style="text-align: right;">
         <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Income_Improvement'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data</a>
-        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Income_Improvement',['table_1', 'table_2', 'wheat', 'maize' , 'sugarcane' , 'vegetable' , 'orchard'], ['Summary', 'Crop & Component Wise' , 'Wheat', 'Maize' , 'Sugarcane' , 'Vegetable' , 'Orchard' ])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
+        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Income_Improvement',['table_1', 'table_2','table_3', 'table_4'], ['Summary', 'Region and Component Wise' , 'Region and Sub Component Wise', 'Region and Categories Wise'])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
     </div>
 </div>
 <hr />
@@ -377,7 +377,7 @@ $components = $components_result->result();
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table id="table_2" class="table table-bordered table-hover table-striped table-sm" style="font-size: 12px;">
+                    <table id="table_3" class="table table-bordered table-hover table-striped table-sm" style="font-size: 12px;">
                         <thead class="thead-light">
                             <tr style="display: n one;">
                                 <th colspan="<?php echo (1 + (count($sub_components) * 2) + 2) ?>">Average Improved Income by Regions and Sub Components Wise</th>
@@ -509,7 +509,7 @@ $components = $components_result->result();
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table id="table_2" class="table table-bordered table-hover table-striped table-sm" style="font-size: 12px;">
+                    <table id="table_4" class="table table-bordered table-hover table-striped table-sm" style="font-size: 12px;">
                         <thead class="thead-light">
                             <tr style="display: n one;">
                                 <th colspan="<?php echo (1 + (count($categorys) * 2) + 2) ?>">Average Improved Income by Regions and Category Wise</th>

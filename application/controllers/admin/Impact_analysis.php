@@ -237,7 +237,7 @@ class Impact_analysis extends CI_Controller
             $query = "SELECT * FROM `impact_survery_water_productivity` ORDER BY id ASC";
             break;
 
-         case 'Engagment_Benefits':
+         case 'Employment_Growth':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
                  income_improved_per, 
                  unskilled_labor_before,
@@ -284,6 +284,57 @@ class Impact_analysis extends CI_Controller
                   FROM `impact_surveys` 
                   ORDER BY id ASC";
             break;
+
+         case 'Environmental':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                  `solid_waste_disposed`,
+                  `soil_disposed`,
+                  `construction_waste_disposed`,
+                  `env_quality_monitored`,
+                  `standing_water`,
+                  `distress_damage`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+         case 'Trees':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                  `trees_cut`,
+                  `trees_cut_count`,
+                  `trees_planted_count`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         case 'IPM_Forming_Community':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                  `pest_mgmt_knowledge`,
+                  `pesticide_storage_handling`,
+                  `surplus_pesticide_mgmt`,
+                  `green_manure_soil_practice`,
+                  `pesticide_impact_observed`,
+                  `env_quality_monitoring`,
+                  `pesticide_timeframe_understanding`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+         case 'Female_Beneficiaries':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                  `watercourse_women_benefit`,
+                  `clean_water_access`,
+                  `kitchen_gardening`,
+                  `drinking_water`,
+                  `bathing_clean_water`,
+                  `clothes_washing_water`,
+                  `women_time_social_economic`,
+                  `women_easy_irrigation`,
+                  `road_accessible`
+                  FROM `impact_surveys` 
+                  ORDER BY id ASC";
+            break;
+
+
+
 
          case 'Private_Investment':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,

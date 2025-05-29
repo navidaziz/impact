@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-4" style="text-align: right;">
         <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Private_Investment'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data</a>
-        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Private_Investment',['table_1', 'table_2', 'table_3', 'table_3'], ['Summary', 'Component Wise' , 'Sub Component Wise', 'Categories Wise'])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
+        <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Private_Investment',['table_1', 'table_2', 'table_3', 'table_4'], ['Summary', 'Component Wise' , 'Sub Component Wise', 'Categories Wise'])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
     </div>
 </div>
 <hr />
