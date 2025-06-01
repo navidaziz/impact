@@ -334,7 +334,12 @@ class Impact_analysis extends CI_Controller
             break;
 
 
-
+         case 'Feild_Visits':
+            $query = "SELECT id, impact_survery_id, `start`, `end`, `quarter`,  impact_quarter_id, 
+            `field_monitor`, region, district, component, sub_component, category
+            FROM `impact_surveys` 
+            ORDER BY id ASC";
+            break;
 
          case 'Private_Investment':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
