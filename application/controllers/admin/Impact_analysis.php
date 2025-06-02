@@ -300,6 +300,7 @@ class Impact_analysis extends CI_Controller
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
                   `trees_cut`,
                   `trees_cut_count`,
+                  `trees_planted`,
                   `trees_planted_count`
                   FROM `impact_surveys` 
                   ORDER BY id ASC";

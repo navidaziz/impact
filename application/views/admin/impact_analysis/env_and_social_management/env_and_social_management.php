@@ -631,8 +631,7 @@ $components = $this->db->query($query)->result();
                     SUM(trees_cut_count) AS total
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
-                    AND component = '" . $component->component . "'
-                    AND `trees_cut_count` IN ('Yes', 'No')";
+                    AND component = '" . $component->component . "'";
                                         $result = $this->db->query($query)->row();
                                     ?>
                                         <td><?php echo $result->total; ?></td>
@@ -641,8 +640,7 @@ $components = $this->db->query($query)->result();
                                     $query = "SELECT 
                     SUM(trees_cut_count) AS total
                     FROM `impact_surveys`
-                    WHERE `trees_cut_count` IN ('Yes', 'No')
-                    AND component = '" . $component->component . "'";
+                    WHERE  component = '" . $component->component . "'";
                                     $result = $this->db->query($query)->row();
                                     ?>
                                     <td><?php echo $result->total; ?></td>
@@ -655,8 +653,7 @@ $components = $this->db->query($query)->result();
                     SUM(trees_planted_count) AS total
                     FROM `impact_surveys`
                     WHERE region = '" . $region->region . "'
-                    AND component = '" . $component->component . "'
-                    AND `trees_planted_count` IN ('Yes', 'No')";
+                    AND component = '" . $component->component . "'";
                                         $result = $this->db->query($query)->row();
                                     ?>
                                         <td><?php echo $result->total; ?></td>
@@ -665,8 +662,7 @@ $components = $this->db->query($query)->result();
                                     $query = "SELECT 
                     SUM(trees_planted_count) AS total
                     FROM `impact_surveys`
-                    WHERE `trees_planted_count` IN ('Yes', 'No')
-                    AND component = '" . $component->component . "'";
+                    WHERE  component = '" . $component->component . "'";
                                     $result = $this->db->query($query)->row();
                                     ?>
                                     <td><?php echo $result->total; ?></td>
