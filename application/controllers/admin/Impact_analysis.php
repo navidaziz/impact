@@ -345,7 +345,9 @@ class Impact_analysis extends CI_Controller
          case 'Private_Investment':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
             actual_cost,
-            community_share
+            community_share,
+            (actual_cost + community_share) as total_cost,
+            ((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
             FROM `impact_surveys` 
             ORDER BY id ASC";
             break;

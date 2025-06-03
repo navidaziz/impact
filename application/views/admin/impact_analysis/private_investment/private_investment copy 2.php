@@ -342,11 +342,9 @@
                                     <th><?php echo ucfirst($region->region); ?></th>
                                     <?php foreach ($components as $component) {  ?>
                                         <?php
-                                        $query = "SELECT 
-                                        COUNT(*) AS total, 
-                                        AVG(actual_cost) AS avg_actual_cost,
-                                        AVG(community_share) AS avg_community_share,
-                                        AVG((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
+                                        $query = "SELECT COUNT(*) as total, 
+                                    AVG(actual_cost) as avg_actual_cost,
+                                    AVG(community_share) as avg_community_share
                                     FROM `impact_surveys`
                                     WHERE region = '" . $region->region . "'
                                     AND component  = '" . $component->component . "'";
@@ -355,7 +353,7 @@
                                         // Calculate community share percentage
                                         $community_share_percentage = 0;
                                         if ($result->avg_actual_cost > 0) {
-                                            $community_share_percentage = $result->community_share_percentage;
+                                            $community_share_percentage = ($result->avg_community_share / $result->avg_actual_cost) * 100;
                                         }
                                         $was[$component->component]['total'] += $result->total;
                                         $was[$component->component]['avg_actual_cost'] += $result->avg_actual_cost * $result->total;
@@ -379,11 +377,9 @@
                                 <th>Average</th>
                                 <?php foreach ($components as $component) {  ?>
                                     <?php
-                                    $query = "SELECT 
-                                        COUNT(*) AS total, 
-                                        AVG(actual_cost) AS avg_actual_cost,
-                                        AVG(community_share) AS avg_community_share,
-                                        AVG((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
+                                    $query = "SELECT COUNT(*) as total, 
+                                    AVG(actual_cost) as avg_actual_cost,
+                                    AVG(community_share) as avg_community_share
                                     FROM `impact_surveys`
                                     WHERE component  = '" . $component->component . "'";
                                     $result = $this->db->query($query)->row();
@@ -391,7 +387,7 @@
                                     // Calculate community share percentage
                                     $community_share_percentage = 0;
                                     if ($result->avg_actual_cost > 0) {
-                                        $community_share_percentage = $result->community_share_percentage;
+                                        $community_share_percentage = ($result->avg_community_share / $result->avg_actual_cost) * 100;
                                     }
                                     ?>
                                     <td style="text-align: center;"><small><?php echo $result->total; ?></small></td>
@@ -468,11 +464,9 @@
                                     <th><?php echo ucfirst($region->region); ?></th>
                                     <?php foreach ($sub_components as $sub_component) {  ?>
                                         <?php
-                                        $query = "SELECT 
-                                        COUNT(*) AS total, 
-                                        AVG(actual_cost) AS avg_actual_cost,
-                                        AVG(community_share) AS avg_community_share,
-                                        AVG((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
+                                        $query = "SELECT COUNT(*) as total, 
+                                    AVG(actual_cost) as avg_actual_cost,
+                                    AVG(community_share) as avg_community_share
                                     FROM `impact_surveys`
                                     WHERE region = '" . $region->region . "'
                                     AND sub_component  = '" . $sub_component->sub_component . "'";
@@ -481,7 +475,7 @@
                                         // Calculate community share percentage
                                         $community_share_percentage = 0;
                                         if ($result->avg_actual_cost > 0) {
-                                            $community_share_percentage = $result->community_share_percentage;
+                                            $community_share_percentage = ($result->avg_community_share / $result->avg_actual_cost) * 100;
                                         }
                                         $was[$sub_component->sub_component]['total'] += $result->total;
                                         $was[$sub_component->sub_component]['avg_actual_cost'] += $result->avg_actual_cost * $result->total;
@@ -505,11 +499,9 @@
                                 <th>Average</th>
                                 <?php foreach ($sub_components as $sub_component) {  ?>
                                     <?php
-                                    $query = "SELECT 
-                                        COUNT(*) AS total, 
-                                        AVG(actual_cost) AS avg_actual_cost,
-                                        AVG(community_share) AS avg_community_share,
-                                        AVG((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
+                                    $query = "SELECT COUNT(*) as total, 
+                                    AVG(actual_cost) as avg_actual_cost,
+                                    AVG(community_share) as avg_community_share
                                     FROM `impact_surveys`
                                     WHERE sub_component  = '" . $sub_component->sub_component . "'";
                                     $result = $this->db->query($query)->row();
@@ -517,7 +509,7 @@
                                     // Calculate community share percentage
                                     $community_share_percentage = 0;
                                     if ($result->avg_actual_cost > 0) {
-                                        $community_share_percentage = $result->community_share_percentage;
+                                        $community_share_percentage = ($result->avg_community_share / $result->avg_actual_cost) * 100;
                                     }
                                     ?>
                                     <td style="text-align: center;"><small><?php echo $result->total; ?></small></td>
@@ -594,11 +586,9 @@
                                     <th><?php echo ucfirst($region->region); ?></th>
                                     <?php foreach ($categorys as $category) {  ?>
                                         <?php
-                                        $query = "SELECT 
-                                        COUNT(*) AS total, 
-                                        AVG(actual_cost) AS avg_actual_cost,
-                                        AVG(community_share) AS avg_community_share,
-                                        AVG((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
+                                        $query = "SELECT COUNT(*) as total, 
+                                    AVG(actual_cost) as avg_actual_cost,
+                                    AVG(community_share) as avg_community_share
                                     FROM `impact_surveys`
                                     WHERE region = '" . $region->region . "'
                                     AND category  = '" . $category->category . "'";
@@ -607,7 +597,7 @@
                                         // Calculate community share percentage
                                         $community_share_percentage = 0;
                                         if ($result->avg_actual_cost > 0) {
-                                            $community_share_percentage = $result->community_share_percentage;
+                                            $community_share_percentage = ($result->avg_community_share / $result->avg_actual_cost) * 100;
                                         }
                                         $was[$category->category]['total'] += $result->total;
                                         $was[$category->category]['avg_actual_cost'] += $result->avg_actual_cost * $result->total;
@@ -631,11 +621,9 @@
                                 <th>Average</th>
                                 <?php foreach ($categorys as $category) {  ?>
                                     <?php
-                                    $query = "SELECT 
-                                        COUNT(*) AS total, 
-                                        AVG(actual_cost) AS avg_actual_cost,
-                                        AVG(community_share) AS avg_community_share,
-                                        AVG((community_share / NULLIF(actual_cost + community_share, 0)) * 100) AS community_share_percentage
+                                    $query = "SELECT COUNT(*) as total, 
+                                    AVG(actual_cost) as avg_actual_cost,
+                                    AVG(community_share) as avg_community_share
                                     FROM `impact_surveys`
                                     WHERE category  = '" . $category->category . "'";
                                     $result = $this->db->query($query)->row();
@@ -643,7 +631,7 @@
                                     // Calculate community share percentage
                                     $community_share_percentage = 0;
                                     if ($result->avg_actual_cost > 0) {
-                                        $community_share_percentage = $result->community_share_percentage;
+                                        $community_share_percentage = ($result->avg_community_share / $result->avg_actual_cost) * 100;
                                     }
                                     ?>
                                     <td style="text-align: center;"><small><?php echo $result->total; ?></small></td>
