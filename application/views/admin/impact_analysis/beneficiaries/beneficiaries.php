@@ -18,6 +18,10 @@
     </div>
 </div>
 <hr />
+<?php
+$query = "SELECT `region` FROM `impact_surveys` GROUP BY `region` ORDER BY `region` ASC";
+$regions = $this->db->query($query)->result();
+?>
 <div class="row">
     <div class="col-md-4">
         <div class="card shadow-sm">
@@ -200,8 +204,9 @@
 
     </div>
 </div>
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
 
         <?php
         $query = "SELECT `component` FROM `impact_surveys` GROUP BY `component` ORDER BY `component` ASC";
@@ -213,130 +218,164 @@
         $total_beneficiaries = [];
         $male_beneficiaries = [];
         $female_beneficiaries = [];
+        $wa = [];
 
         ?>
-        <table class="table table-bordered table_medium">
-            <thead>
-                <tr>
-                    <th colspan="6">Beneficiaries Components Wise</th>
-                </tr>
-                <tr>
-                    <th rowspan="2">Components</th>
-                    <th colspan="4">Beneficiaries</th>
-                </tr>
-                <tr>
-                    <th>Households <small>Avg.</small></th>
-                    <th>Total <small>Avg.</small></th>
-                    <th>Male <small>Avg.</small></th>
-                    <th>Female <small>Avg.</small></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($components as $component) {
-                    $query =
-                        "SELECT ROUND(AVG(s.`total_beneficiary_households`),2) as house_holds,
-                            ROUND(AVG(s.`total_beneficiary_households`*5.7),2) as total_beneficiaries,
-                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.49),2) as male_beneficiaries,
-                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.51),2) as female_beneficiaries
-                            FROM `impact_surveys` as s
-                            WHERE s.component = '" . $component->component . "'";
-                    $beneficiary = $this->db->query($query)->row();
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <strong>Beneficiaries Region Wise</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="6">Beneficiaries Region Wise</th>
+                            </tr>
+                            <tr>
+                                <th>Regions</th>
+                                <th><small>Total</small></th>
+                                <th>Households <small>Avg.</small></th>
+                                <th>Total <small>Avg.</small></th>
+                                <th>Male <small>Avg.</small></th>
+                                <th>Female <small>Avg.</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($regions as $region) {
+                                $query = "SELECT COUNT(*) as total, 
+                                ROUND(AVG(b.`house_holds`), 2) AS house_holds,
+                                ROUND(AVG(b.`total_beneficiaries`), 2) AS total_beneficiaries,
+                                ROUND(AVG(b.`male_beneficiaries`), 2) AS male_beneficiaries,
+                                ROUND(AVG(b.`female_beneficiaries`), 2) AS female_beneficiaries
+                                FROM 
+                                `beneficiaries` AS b
+                                WHERE b.region = '" . $region->region . "'";
+                                $beneficiary = $this->db->query($query)->row();
 
 
-                    // Store values for Highcharts
-                    $categories[] = $component->component;
-                    $house_holds[] = $beneficiary->house_holds;
-                    $total_beneficiaries[] = $beneficiary->total_beneficiaries;
-                    $male_beneficiaries[]  = $beneficiary->male_beneficiaries;
-                    $female_beneficiaries[] = $beneficiary->female_beneficiaries;
-                ?>
-                    <tr>
-                        <th><?php echo $component->component; ?></th>
-                        <td><?php echo $beneficiary->house_holds; ?></td>
-                        <td><?php echo $beneficiary->total_beneficiaries; ?></td>
-                        <td><?php echo $beneficiary->male_beneficiaries; ?></td>
-                        <td><?php echo $beneficiary->female_beneficiaries; ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-            <tfoot>
-                <?php
-                $query =
-                    "SELECT ROUND(AVG(s.`total_beneficiary_households`),2) as house_holds,
-                            ROUND(AVG(s.`total_beneficiary_households`*5.7),2) as total_beneficiaries,
-                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.49),2) as male_beneficiaries,
-                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.51),2) as female_beneficiaries
-                            FROM `impact_surveys` as s";
-                $beneficiary = $this->db->query($query)->row(); ?>
-                <tr>
-                    <th>Total</th>
-                    <td><?php echo $beneficiary->house_holds; ?></td>
-                    <td><?php echo $beneficiary->total_beneficiaries; ?></td>
-                    <td><?php echo $beneficiary->male_beneficiaries; ?></td>
-                    <td><?php echo $beneficiary->female_beneficiaries; ?></td>
-                </tr>
-            </tfoot>
+                                // Store values for Highcharts
+                                $categories[] = $component->component;
+                                $house_holds[] = $beneficiary->house_holds;
+                                $total_beneficiaries[] = $beneficiary->total_beneficiaries;
+                                $male_beneficiaries[]  = $beneficiary->male_beneficiaries;
+                                $female_beneficiaries[] = $beneficiary->female_beneficiaries;
 
-        </table>
+                                $wa['total'] += $beneficiary->total;
+                                $wa['house_holds'] += $beneficiary->house_holds * $beneficiary->total;
+                                $wa['total_beneficiaries'] += $beneficiary->total_beneficiaries * $beneficiary->total;
+                                $wa['male_beneficiaries'] += $beneficiary->male_beneficiaries * $beneficiary->total;
+                                $wa['female_beneficiaries'] += $beneficiary->female_beneficiaries * $beneficiary->total;
+                            ?>
+                                <tr>
+                                    <th><?php echo $region->region; ?></th>
+                                    <td><small><?php echo $beneficiary->total; ?></small></td>
+                                    <td><?php echo $beneficiary->house_holds; ?></td>
+                                    <td><?php echo $beneficiary->total_beneficiaries; ?></td>
+                                    <td><?php echo $beneficiary->male_beneficiaries; ?></td>
+                                    <td><?php echo $beneficiary->female_beneficiaries; ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot>
+                            <?php
+                            $query =
+                                "SELECT COUNT(*) as total, 
+                                ROUND(AVG(b.`house_holds`), 2) AS house_holds,
+                                ROUND(AVG(b.`total_beneficiaries`), 2) AS total_beneficiaries,
+                                ROUND(AVG(b.`male_beneficiaries`), 2) AS male_beneficiaries,
+                                ROUND(AVG(b.`female_beneficiaries`), 2) AS female_beneficiaries
+                                FROM 
+                                `beneficiaries` AS b";
+                            $beneficiary = $this->db->query($query)->row(); ?>
+                            <tr>
+                                <th>Average</th>
+                                <td><small><?php echo $beneficiary->total; ?></small></td>
+                                <td><?php echo $beneficiary->house_holds; ?></td>
+                                <td><?php echo $beneficiary->total_beneficiaries; ?></td>
+                                <td><?php echo $beneficiary->male_beneficiaries; ?></td>
+                                <td><?php echo $beneficiary->female_beneficiaries; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Weighted Average</th>
+                                <td><small><?php echo $wa['total']; ?></small></td>
+                                <td><?php echo round($wa['house_holds'] / $wa['total'], 2); ?></td>
+                                <td><?php echo round($wa['total_beneficiaries'] / $wa['total'], 2); ?></td>
+                                <td><?php echo round($wa['male_beneficiaries'] / $wa['total'], 2); ?></td>
+                                <td><?php echo round($wa['female_beneficiaries'] / $wa['total'], 2); ?></td>
+                            </tr>
+                        </tfoot>
 
-        <div id="components_beneficiaries_chart"></div>
-        <script>
-            Highcharts.chart('components_beneficiaries_chart', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Beneficiaries Components Wise'
-                },
-                xAxis: {
-                    categories: <?php echo json_encode($categories); ?>,
-                    title: {
-                        text: 'Components'
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'WP Kg/m<sup>3</sup> (Avg.)'
-                    }
-                },
-                tooltip: {
-                    shared: true,
-                    valueSuffix: ''
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                    name: 'House Holds',
-                    data: <?php echo json_encode($house_holds, JSON_NUMERIC_CHECK); ?>
-                }, {
-                    name: 'Total Beneficiaries',
-                    data: <?php echo json_encode($total_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                }, {
-                    name: 'Male Beneficiaries',
-                    data: <?php echo json_encode($male_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                }, {
-                    name: 'Female Beneficiaries',
-                    data: <?php echo json_encode($female_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                }]
-            });
-        </script>
-
-
-
-
-
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="components_beneficiaries_chart"></div>
+                <script>
+                    Highcharts.chart('region_beneficiaries_chart', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Beneficiaries Components Wise'
+                        },
+                        xAxis: {
+                            categories: <?php echo json_encode($categories); ?>,
+                            title: {
+                                text: 'Components'
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'WP Kg/m<sup>3</sup> (Avg.)'
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            valueSuffix: ''
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: [{
+                            name: 'House Holds',
+                            data: <?php echo json_encode($house_holds, JSON_NUMERIC_CHECK); ?>
+                        }, {
+                            name: 'Total Beneficiaries',
+                            data: <?php echo json_encode($total_beneficiaries, JSON_NUMERIC_CHECK); ?>
+                        }, {
+                            name: 'Male Beneficiaries',
+                            data: <?php echo json_encode($male_beneficiaries, JSON_NUMERIC_CHECK); ?>
+                        }, {
+                            name: 'Female Beneficiaries',
+                            data: <?php echo json_encode($female_beneficiaries, JSON_NUMERIC_CHECK); ?>
+                        }]
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-6">
 
         <?php
-        $query = "SELECT `sub_component` FROM `impact_surveys` GROUP BY `sub_component` ORDER BY `sub_component` ASC";
-        $sub_components = $this->db->query($query)->result();
+        $query = "SELECT `component` FROM `impact_surveys` GROUP BY `component` ORDER BY `component` ASC";
+        $components = $this->db->query($query)->result();
 
         // Initialize arrays for Highcharts data
         $categories = [];
@@ -344,124 +383,285 @@
         $total_beneficiaries = [];
         $male_beneficiaries = [];
         $female_beneficiaries = [];
+        $wa = [];
 
         ?>
-        <table class="table table-bordered table_medium">
-            <thead>
-                <tr>
-                    <th colspan="6">Beneficiaries Sub Components Wise</th>
-                </tr>
-                <tr>
-                    <th rowspan="2">Sub Componets</th>
-                    <th colspan="4">Beneficiaries</th>
-                </tr>
-                <tr>
-                    <th>Households <small>Avg.</small></th>
-                    <th>Total <small>Avg.</small></th>
-                    <th>Male <small>Avg.</small></th>
-                    <th>Female <small>Avg.</small></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($sub_components as $sub_component) {
-                    $query =
-                        "SELECT ROUND(AVG(s.`total_beneficiary_households`),2) as house_holds,
-                            ROUND(AVG(s.`total_beneficiary_households`*5.7),2) as total_beneficiaries,
-                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.49),2) as male_beneficiaries,
-                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.51),2) as female_beneficiaries
-                            FROM `impact_surveys` as s
-                            WHERE s.sub_component = '" . $sub_component->sub_component . "'";
-                    $beneficiary = $this->db->query($query)->row();
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <strong>Beneficiaries Components Wise</strong>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="6">Beneficiaries Components Wise</th>
+                            </tr>
+                            <tr>
+                                <th>Components</th>
+                                <th><small>Total</small></th>
+                                <th>Households <small>Avg.</small></th>
+                                <th>Total <small>Avg.</small></th>
+                                <th>Male <small>Avg.</small></th>
+                                <th>Female <small>Avg.</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($components as $component) {
+                                $query = "SELECT COUNT(*) as total, 
+                                ROUND(AVG(b.`house_holds`), 2) AS house_holds,
+                                ROUND(AVG(b.`total_beneficiaries`), 2) AS total_beneficiaries,
+                                ROUND(AVG(b.`male_beneficiaries`), 2) AS male_beneficiaries,
+                                ROUND(AVG(b.`female_beneficiaries`), 2) AS female_beneficiaries
+                                FROM 
+                                `beneficiaries` AS b
+                                WHERE b.component = '" . $component->component . "'";
+                                $beneficiary = $this->db->query($query)->row();
 
 
-                    // Store values for Highcharts
-                    $categories[] = $sub_component->sub_component;
-                    $house_holds[] = $beneficiary->house_holds;
-                    $total_beneficiaries[] = $beneficiary->total_beneficiaries;
-                    $male_beneficiaries[]  = $beneficiary->male_beneficiaries;
-                    $female_beneficiaries[] = $beneficiary->female_beneficiaries;
-                ?>
-                    <tr>
-                        <th><?php echo $sub_component->sub_component; ?></th>
-                        <td><?php echo $beneficiary->house_holds; ?></td>
-                        <td><?php echo $beneficiary->total_beneficiaries; ?></td>
-                        <td><?php echo $beneficiary->male_beneficiaries; ?></td>
-                        <td><?php echo $beneficiary->female_beneficiaries; ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-            <tfoot>
-                <?php
+                                // Store values for Highcharts
+                                $categories[] = $component->component;
+                                $house_holds[] = $beneficiary->house_holds;
+                                $total_beneficiaries[] = $beneficiary->total_beneficiaries;
+                                $male_beneficiaries[]  = $beneficiary->male_beneficiaries;
+                                $female_beneficiaries[] = $beneficiary->female_beneficiaries;
+
+                                $wa['total'] += $beneficiary->total;
+                                $wa['house_holds'] += $beneficiary->house_holds * $beneficiary->total;
+                                $wa['total_beneficiaries'] += $beneficiary->total_beneficiaries * $beneficiary->total;
+                                $wa['male_beneficiaries'] += $beneficiary->male_beneficiaries * $beneficiary->total;
+                                $wa['female_beneficiaries'] += $beneficiary->female_beneficiaries * $beneficiary->total;
+                            ?>
+                                <tr>
+                                    <th><?php echo $component->component; ?></th>
+                                    <td><small><?php echo $beneficiary->total; ?></small></td>
+                                    <td><?php echo $beneficiary->house_holds; ?></td>
+                                    <td><?php echo $beneficiary->total_beneficiaries; ?></td>
+                                    <td><?php echo $beneficiary->male_beneficiaries; ?></td>
+                                    <td><?php echo $beneficiary->female_beneficiaries; ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot>
+                            <?php
+                            $query =
+                                "SELECT COUNT(*) as total, 
+                                ROUND(AVG(b.`house_holds`), 2) AS house_holds,
+                                ROUND(AVG(b.`total_beneficiaries`), 2) AS total_beneficiaries,
+                                ROUND(AVG(b.`male_beneficiaries`), 2) AS male_beneficiaries,
+                                ROUND(AVG(b.`female_beneficiaries`), 2) AS female_beneficiaries
+                                FROM 
+                                `beneficiaries` AS b";
+                            $beneficiary = $this->db->query($query)->row(); ?>
+                            <tr>
+                                <th>Average</th>
+                                <td><small><?php echo $beneficiary->total; ?></small></td>
+                                <td><?php echo $beneficiary->house_holds; ?></td>
+                                <td><?php echo $beneficiary->total_beneficiaries; ?></td>
+                                <td><?php echo $beneficiary->male_beneficiaries; ?></td>
+                                <td><?php echo $beneficiary->female_beneficiaries; ?></td>
+                            </tr>
+                            <tr>
+                                <th>Weighted Average</th>
+                                <td><small><?php echo $wa['total']; ?></small></td>
+                                <td><?php echo round($wa['house_holds'] / $wa['total'], 2); ?></td>
+                                <td><?php echo round($wa['total_beneficiaries'] / $wa['total'], 2); ?></td>
+                                <td><?php echo round($wa['male_beneficiaries'] / $wa['total'], 2); ?></td>
+                                <td><?php echo round($wa['female_beneficiaries'] / $wa['total'], 2); ?></td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="components_beneficiaries_chart"></div>
+                <script>
+                    Highcharts.chart('components_beneficiaries_chart', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Beneficiaries Components Wise'
+                        },
+                        xAxis: {
+                            categories: <?php echo json_encode($categories); ?>,
+                            title: {
+                                text: 'Components'
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'WP Kg/m<sup>3</sup> (Avg.)'
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            valueSuffix: ''
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: [{
+                            name: 'House Holds',
+                            data: <?php echo json_encode($house_holds, JSON_NUMERIC_CHECK); ?>
+                        }, {
+                            name: 'Total Beneficiaries',
+                            data: <?php echo json_encode($total_beneficiaries, JSON_NUMERIC_CHECK); ?>
+                        }, {
+                            name: 'Male Beneficiaries',
+                            data: <?php echo json_encode($male_beneficiaries, JSON_NUMERIC_CHECK); ?>
+                        }, {
+                            name: 'Female Beneficiaries',
+                            data: <?php echo json_encode($female_beneficiaries, JSON_NUMERIC_CHECK); ?>
+                        }]
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+
+    <?php
+    $query = "SELECT `sub_component` FROM `impact_surveys` GROUP BY `sub_component` ORDER BY `sub_component` ASC";
+    $sub_components = $this->db->query($query)->result();
+
+    // Initialize arrays for Highcharts data
+    $categories = [];
+    $house_holds = [];
+    $total_beneficiaries = [];
+    $male_beneficiaries = [];
+    $female_beneficiaries = [];
+
+    ?>
+    <table class="table table-bordered table_medium">
+        <thead>
+            <tr>
+                <th colspan="6">Beneficiaries Sub Components Wise</th>
+            </tr>
+            <tr>
+                <th rowspan="2">Sub Componets</th>
+                <th colspan="4">Beneficiaries</th>
+            </tr>
+            <tr>
+                <th>Households <small>Avg.</small></th>
+                <th>Total <small>Avg.</small></th>
+                <th>Male <small>Avg.</small></th>
+                <th>Female <small>Avg.</small></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($sub_components as $sub_component) {
                 $query =
                     "SELECT ROUND(AVG(s.`total_beneficiary_households`),2) as house_holds,
                             ROUND(AVG(s.`total_beneficiary_households`*5.7),2) as total_beneficiaries,
                             ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.49),2) as male_beneficiaries,
                             ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.51),2) as female_beneficiaries
-                            FROM `impact_surveys` as s";
-                $beneficiary = $this->db->query($query)->row(); ?>
+                            FROM `impact_surveys` as s
+                            WHERE s.sub_component = '" . $sub_component->sub_component . "'";
+                $beneficiary = $this->db->query($query)->row();
+
+
+                // Store values for Highcharts
+                $categories[] = $sub_component->sub_component;
+                $house_holds[] = $beneficiary->house_holds;
+                $total_beneficiaries[] = $beneficiary->total_beneficiaries;
+                $male_beneficiaries[]  = $beneficiary->male_beneficiaries;
+                $female_beneficiaries[] = $beneficiary->female_beneficiaries;
+            ?>
                 <tr>
-                    <th>Total</th>
+                    <th><?php echo $sub_component->sub_component; ?></th>
                     <td><?php echo $beneficiary->house_holds; ?></td>
                     <td><?php echo $beneficiary->total_beneficiaries; ?></td>
                     <td><?php echo $beneficiary->male_beneficiaries; ?></td>
                     <td><?php echo $beneficiary->female_beneficiaries; ?></td>
                 </tr>
-            </tfoot>
+            <?php } ?>
+        </tbody>
+        <tfoot>
+            <?php
+            $query =
+                "SELECT ROUND(AVG(s.`total_beneficiary_households`),2) as house_holds,
+                            ROUND(AVG(s.`total_beneficiary_households`*5.7),2) as total_beneficiaries,
+                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.49),2) as male_beneficiaries,
+                            ROUND((AVG(s.`total_beneficiary_households`*5.7)*0.51),2) as female_beneficiaries
+                            FROM `impact_surveys` as s";
+            $beneficiary = $this->db->query($query)->row(); ?>
+            <tr>
+                <th>Total</th>
+                <td><?php echo $beneficiary->house_holds; ?></td>
+                <td><?php echo $beneficiary->total_beneficiaries; ?></td>
+                <td><?php echo $beneficiary->male_beneficiaries; ?></td>
+                <td><?php echo $beneficiary->female_beneficiaries; ?></td>
+            </tr>
+        </tfoot>
 
-        </table>
+    </table>
 
-        <div id="sub_components_beneficiaries_chart"></div>
-        <script>
-            Highcharts.chart('sub_components_beneficiaries_chart', {
-                chart: {
-                    type: 'column'
-                },
+    <div id="sub_components_beneficiaries_chart"></div>
+    <script>
+        Highcharts.chart('sub_components_beneficiaries_chart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Beneficiaries Sub Components Wise'
+            },
+            xAxis: {
+                categories: <?php echo json_encode($categories); ?>,
                 title: {
-                    text: 'Beneficiaries Sub Components Wise'
-                },
-                xAxis: {
-                    categories: <?php echo json_encode($categories); ?>,
-                    title: {
-                        text: 'Sub Component'
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'WP Kg/m<sup>3</sup> (Avg.)'
-                    }
-                },
-                tooltip: {
-                    shared: true,
-                    valueSuffix: ''
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                    name: 'House Holds',
-                    data: <?php echo json_encode($house_holds, JSON_NUMERIC_CHECK); ?>
-                }, {
-                    name: 'Total Beneficiaries',
-                    data: <?php echo json_encode($total_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                }, {
-                    name: 'Male Beneficiaries',
-                    data: <?php echo json_encode($male_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                }, {
-                    name: 'Female Beneficiaries',
-                    data: <?php echo json_encode($female_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                }]
-            });
-        </script>
+                    text: 'Sub Component'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'WP Kg/m<sup>3</sup> (Avg.)'
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ''
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'House Holds',
+                data: <?php echo json_encode($house_holds, JSON_NUMERIC_CHECK); ?>
+            }, {
+                name: 'Total Beneficiaries',
+                data: <?php echo json_encode($total_beneficiaries, JSON_NUMERIC_CHECK); ?>
+            }, {
+                name: 'Male Beneficiaries',
+                data: <?php echo json_encode($male_beneficiaries, JSON_NUMERIC_CHECK); ?>
+            }, {
+                name: 'Female Beneficiaries',
+                data: <?php echo json_encode($female_beneficiaries, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+    </script>
 
 
 
 
 
-    </div>
+</div>
 </div>
 
 <?php
@@ -600,8 +800,7 @@ $female_beneficiaries = [];
 
 
 <?php
-$query = "SELECT `region` FROM `impact_surveys` GROUP BY `region` ORDER BY `region` ASC";
-$regions = $this->db->query($query)->result();
+
 
 // Initialize arrays for Highcharts data
 $categories_list = [];

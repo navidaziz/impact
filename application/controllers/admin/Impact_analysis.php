@@ -354,12 +354,7 @@ class Impact_analysis extends CI_Controller
 
 
          case 'Beneficiaries':
-            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
-                             `total_beneficiary_households` AS house_holds,
-                     (`total_beneficiary_households` * 5.7) AS total_beneficiaries,
-                     (`total_beneficiary_households` * 5.7 * 0.49) AS male_beneficiaries,
-                     (`total_beneficiary_households` * 5.7 * 0.51) AS female_beneficiaries
-                  FROM `impact_surveys`";
+            $query = "SELECT * FROM `beneficiaries`";
             break;
 
          case 'WUA_Members':
