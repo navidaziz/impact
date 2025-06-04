@@ -351,6 +351,23 @@ class Impact_analysis extends CI_Controller
             FROM `impact_surveys` 
             ORDER BY id ASC";
             break;
+
+         case 'WUA_Members':
+            $query = "SELECT 
+                     id, 
+                     impact_survery_id, 
+                     region, 
+                     district, 
+                     component, 
+                     sub_component, 
+                     category,
+                     wua_members, 
+                     male_members, 
+                     female_members,
+                     ROUND(male_members / (male_members + female_members) * 100, 2) AS male_percentage,
+                     ROUND(female_members / (male_members + female_members) * 100, 2) AS female_percentage
+                  FROM `impact_surveys`";
+            break;
          default:
             echo "File Name Not Found";
             exit();
