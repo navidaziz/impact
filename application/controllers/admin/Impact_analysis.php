@@ -352,15 +352,18 @@ class Impact_analysis extends CI_Controller
             ORDER BY id ASC";
             break;
 
+
+         case 'Beneficiaries':
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+                             `total_beneficiary_households` AS house_holds,
+                     (`total_beneficiary_households` * 5.7) AS total_beneficiaries,
+                     (`total_beneficiary_households` * 5.7 * 0.49) AS male_beneficiaries,
+                     (`total_beneficiary_households` * 5.7 * 0.51) AS female_beneficiaries
+                  FROM `impact_surveys`";
+            break;
+
          case 'WUA_Members':
-            $query = "SELECT 
-                     id, 
-                     impact_survery_id, 
-                     region, 
-                     district, 
-                     component, 
-                     sub_component, 
-                     category,
+            $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
                      wua_members, 
                      male_members, 
                      female_members,
