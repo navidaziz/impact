@@ -188,11 +188,11 @@
                     data: [{
                         name: 'Male',
                         color: '#00A2D6',
-                        y: <?php echo $wua->male_percentage ?? 0; ?>
+                        y: <?php echo $wua->male_percentage; ?>
                     }, {
                         name: 'Female',
                         color: '#EF3DBB',
-                        y: <?php echo $wua->female_percentage ?? 0; ?>
+                        y: <?php echo $wua->female_percentage; ?>
                     }]
                 }]
             });
