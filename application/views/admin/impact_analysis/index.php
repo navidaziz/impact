@@ -265,6 +265,7 @@
                     <li class="list-group-item" id="water_losses_list" onclick="get_report('water_losses')">Water Losses</li>
                     <li class="list-group-item" id="water_productivity_list" onclick="get_report('water_productivity')">Water Productivity</li>
                     <li class="list-group-item" id="cropping_intensity_list" onclick="get_report('cropping_intensity')">Cropping Intensity</li>
+                    <li class="list-group-item" id="wuas_list" onclick="get_report('wuas')">WUA Members</li>
                     <li class="list-group-item" id="beneficiaries_list" onclick="get_report('beneficiaries')">Beneficiaries</li>
                     <li class="list-group-item" id="impact_income_list" onclick="get_report('impact_income')">Citizen Income</li>
                     <li class="list-group-item" id="engagment_benefits_list" onclick="get_report('engagment_benefits')">Employment Growth</li>

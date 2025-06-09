@@ -113,6 +113,13 @@ class Impact_analysis extends CI_Controller
       $this->load->view('admin/impact_analysis/beneficiaries/beneficiaries', $this->data);
    }
 
+   public function wuas()
+   {
+      $this->data['title'] = '';
+      $this->data['description'] = '';
+      $this->load->view('admin/impact_analysis/wuas/wuas', $this->data);
+   }
+
    public function engagment_benefits()
    {
       $this->data['title'] = '';

@@ -11,8 +11,6 @@
                                             ?></strong> Impact Surveys</small>
     </div>
     <div class="col-md-6" style="text-align: right;">
-
-        <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/WUA_Members'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Data WUA Members</a>
         <a target="new" href="<?php echo base_url('admin/impact_analysis/export_data/Beneficiaries'); ?>" class="btn btn-success btn-sm"><i class="fa fa-download" aria-hidden="true"></i> Raw Beneficiaries Data</a>
         <button class="btn btn-danger btn-sm" onclick="exportMultipleTablesToExcel('Irrigated_CCA',['table_1', 'table_2', 'wheat', 'maize' , 'maize_hybrid' , 'sugarcane' , 'fodder' , 'vegetable' , 'fruit_orchard' ], ['Summary', 'Crop & Component Wise' , 'wheat', 'maize' , 'maize_hybrid' , 'sugarcane' , 'fodder' , 'vegetable' , 'fruit_orchard'])"><i class="fa fa-download" aria-hidden="true"></i> Export Data in Excel</button>
     </div>
@@ -22,228 +20,55 @@
 $query = "SELECT `region` FROM `impact_surveys` GROUP BY `region` ORDER BY `region` ASC";
 $regions = $this->db->query($query)->result();
 ?>
-<div class="row">
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <strong>WUA AVG. Members <small>Per Scheme</small></strong>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr style="display: none;">
-                                <th colspan="2">WUA AVG. Members <small>Per Scheme</small></th>
-                            </tr>
-                            <tr>
-                                <th>Description</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $query = "
-                                SELECT 
-                                    ROUND(AVG(wua_members), 2) AS wua_members,
-                                    ROUND(AVG(male_members), 2) AS male_members,
-                                    ROUND(AVG(female_members), 2) AS female_members,
-                                    ROUND(AVG(male_members) / (AVG(male_members) + AVG(female_members)) * 100, 2) AS male_percentage,
-                                    ROUND(AVG(female_members) / (AVG(male_members) + AVG(female_members)) * 100, 2) AS female_percentage
-                                FROM impact_surveys AS s;
-                            ";
-                            $wua = $this->db->query($query)->row();
-
-                            // Store values for Highcharts
-                            $wua_members[] = $wua->wua_members;
-                            $male_members[] = $wua->male_members;
-                            $female_members[] = $wua->female_members;
-                            ?>
-                            <tr>
-                                <td>Average Members</td>
-                                <td><?php echo $wua->wua_members; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Male Members (Avg.)</td>
-                                <td><?php echo $wua->male_members; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Female Members (Avg.)</td>
-                                <td><?php echo $wua->female_members; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Male Members (%)</td>
-                                <td><?php echo round($wua->male_percentage, 2) . "%"; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Female Members (%)</td>
-                                <td><?php echo round($wua->female_percentage, 2) . "%"; ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
 
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div id="wua_members_chart" style="width: 100%;  height: 330px; margin: 0 auto;"></div>
-            </div>
-        </div>
-        <script>
-            Highcharts.chart('wua_members_chart', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'WUA Members'
-                },
-                xAxis: {
-                    categories: 'WUA Average Members',
-                    title: {
-                        text: 'Average Members'
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: '(Avg.)'
-                    }
-                },
-                tooltip: {
-                    shared: true,
-                    valueSuffix: ''
-                },
-                plotOptions: {
-                    column: {
-                        shadow: false,
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            //format: '{y:,.000f}',
-                            crop: false, // Don't hide labels outside the plot area
-                            overflow: 'none', // Prevent hiding when overflowing
-                            allowOverlap: true,
-                            //rotation: -90,
-                            style: {
-                                fontSize: '9px' // Change to your desired font size
 
-                            }
-
-                        }
-                    }
-                },
-                series: [{
-                        name: 'AVG. Members',
-                        data: <?php echo json_encode($wua_members, JSON_NUMERIC_CHECK); ?>
-                    },
-                    {
-                        name: 'Males',
-                        color: '#00A2D6',
-                        data: <?php echo json_encode($male_members, JSON_NUMERIC_CHECK); ?>
-                    },
-                    {
-                        name: 'Females',
-                        color: '#EF3DBB',
-                        data: <?php echo json_encode($female_members, JSON_NUMERIC_CHECK); ?>
-                    }
-                ]
-            });
-        </script>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div id="members-pie" style="width: 100%;  height: 330px; margin: 0 auto;"></div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            Highcharts.chart('members-pie', {
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: 'WUA Member Gender Distribution'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.2f} %'
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Members',
-                    colorByPoint: true,
-                    data: [{
-                        name: 'Male',
-                        color: '#00A2D6',
-                        y: <?php echo $wua->male_percentage; ?>
-                    }, {
-                        name: 'Female',
-                        color: '#EF3DBB',
-                        y: <?php echo $wua->female_percentage; ?>
-                    }]
-                }]
-            });
-        </script>
-
-    </div>
-</div>
-
+<?php
+$query = "SELECT `region` FROM `impact_surveys` 
+GROUP BY `region` ASC;";
+$regions_result = $this->db->query($query);
+$regions = $regions_result->result();
+$query = "SELECT `component` FROM `impact_surveys` 
+GROUP BY `component` ORDER BY `component` ASC";
+$components_result = $this->db->query($query);
+$components = $components_result->result();
+?>
 <div class="row">
     <div class="col-md-6">
-
         <?php
-        $query = "SELECT `component` FROM `impact_surveys` GROUP BY `component` ORDER BY `component` ASC";
-        $components = $this->db->query($query)->result();
+        $chartData = array();
+        $categories = array();
+        $beforeData = array();
+        $afterData = array();
+        $increaseData = array();
+        $perIncreaseData = array();
 
-        // Initialize arrays for Highcharts data
-        $categories = [];
-        $house_holds = [];
-        $total_beneficiaries = [];
-        $male_beneficiaries = [];
-        $female_beneficiaries = [];
-        $wa = [];
-
+        $house_holds = $total_beneficiaries = $male_beneficiaries = $female_beneficiaries = $total  = 0;
         ?>
+
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <strong>Beneficiaries Region Wise</strong>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-
-                    <table class="table table-bordered">
-                        <thead>
+                    <table class="table table-bordered table-hover mb-0" id="table_1" style="font-size: 12px;">
+                        <thead class="thead-light">
                             <tr>
-                                <th colspan="6">Beneficiaries Region Wise</th>
+                                <th style="display: none; text-align:center" colspan="5">Beneficiaries Region Wise</th>
                             </tr>
                             <tr>
                                 <th>Regions</th>
-                                <th><small>Total</small></th>
-                                <th>Households <small>Avg.</small></th>
-                                <th>Total <small>Avg.</small></th>
-                                <th>Male <small>Avg.</small></th>
-                                <th>Female <small>Avg.</small></th>
+                                <th class="text-center"><small>Total</small></th>
+                                <th class="text-center">Households <small>(AVG)</small></th>
+                                <th class="text-center">Beneficiaries <small>(AVG)</small></th>
+                                <th class="text-center">Male <small>(AVG)</small></th>
+                                <th class="text-center">Female <small>(AVG)</small></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($regions as $region) {
+                            <?php
+                            foreach ($regions as $region) {
                                 $query = "SELECT COUNT(*) as total, 
                                 ROUND(AVG(b.`house_holds`), 2) AS house_holds,
                                 ROUND(AVG(b.`total_beneficiaries`), 2) AS total_beneficiaries,
@@ -251,120 +76,160 @@ $regions = $this->db->query($query)->result();
                                 ROUND(AVG(b.`female_beneficiaries`), 2) AS female_beneficiaries
                                 FROM 
                                 `beneficiaries` AS b
-                                WHERE b.region = '" . $region->region . "'";
-                                $beneficiary = $this->db->query($query)->row();
+                                WHERE b.region =  ? ";
+                                $result = $this->db->query($query, array($region->region));
+                                $row = $result->row();
 
-
-                                // Store values for Highcharts
-                                $categories[] = $component->component;
-                                $house_holds[] = $beneficiary->house_holds;
-                                $total_beneficiaries[] = $beneficiary->total_beneficiaries;
-                                $male_beneficiaries[]  = $beneficiary->male_beneficiaries;
-                                $female_beneficiaries[] = $beneficiary->female_beneficiaries;
-
-                                $wa['total'] += $beneficiary->total;
-                                $wa['house_holds'] += $beneficiary->house_holds * $beneficiary->total;
-                                $wa['total_beneficiaries'] += $beneficiary->total_beneficiaries * $beneficiary->total;
-                                $wa['male_beneficiaries'] += $beneficiary->male_beneficiaries * $beneficiary->total;
-                                $wa['female_beneficiaries'] += $beneficiary->female_beneficiaries * $beneficiary->total;
+                                $house_holds += $row->house_holds * $row->total;
+                                $total_beneficiaries += $row->total_beneficiaries * $row->total;
+                                $male_beneficiaries += $row->male_beneficiaries * $row->total;
+                                $female_beneficiaries += $row->female_beneficiaries * $row->total;
+                                $total += $row->total;
+                                // Prepare chart data
+                                $categories[] = ucfirst($region->region);
+                                $tbData[] = (float) $row->total_beneficiaries;
+                                $hhData[] = (float) $row->house_holds;
+                                $mbData[] = (float) $row->male_beneficiaries;
+                                $fbDate[] = (float) $row->female_beneficiaries;
                             ?>
                                 <tr>
-                                    <th><?php echo $region->region; ?></th>
-                                    <td><small><?php echo $beneficiary->total; ?></small></td>
-                                    <td><?php echo $beneficiary->house_holds; ?></td>
-                                    <td><?php echo $beneficiary->total_beneficiaries; ?></td>
-                                    <td><?php echo $beneficiary->male_beneficiaries; ?></td>
-                                    <td><?php echo $beneficiary->female_beneficiaries; ?></td>
+                                    <td><?php echo ucfirst($region->region) ?></td>
+                                    <td class="text-center"><small><?php echo $row->total; ?></small></td>
+                                    <td class="text-center"><?php echo number_format($row->house_holds, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($row->total_beneficiaries, 2); ?></td>
+                                    <td class="text-center"><?php echo number_format($row->male_beneficiaries, 2); ?></td>
+                                    <th class="text-center"><?php echo number_format($row->female_beneficiaries, 2); ?></th>
                                 </tr>
                             <?php } ?>
                         </tbody>
-                        <tfoot>
-                            <?php
-                            $query =
-                                "SELECT COUNT(*) as total, 
-                                ROUND(AVG(b.`house_holds`), 2) AS house_holds,
-                                ROUND(AVG(b.`total_beneficiaries`), 2) AS total_beneficiaries,
-                                ROUND(AVG(b.`male_beneficiaries`), 2) AS male_beneficiaries,
-                                ROUND(AVG(b.`female_beneficiaries`), 2) AS female_beneficiaries
-                                FROM 
-                                `beneficiaries` AS b";
-                            $beneficiary = $this->db->query($query)->row(); ?>
+                        <tfoot class="font-weight-bold">
                             <tr>
-                                <th>Average</th>
-                                <td><small><?php echo $beneficiary->total; ?></small></td>
-                                <td><?php echo $beneficiary->house_holds; ?></td>
-                                <td><?php echo $beneficiary->total_beneficiaries; ?></td>
-                                <td><?php echo $beneficiary->male_beneficiaries; ?></td>
-                                <td><?php echo $beneficiary->female_beneficiaries; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Weighted Average</th>
-                                <td><small><?php echo $wa['total']; ?></small></td>
-                                <td><?php echo round($wa['house_holds'] / $wa['total'], 2); ?></td>
-                                <td><?php echo round($wa['total_beneficiaries'] / $wa['total'], 2); ?></td>
-                                <td><?php echo round($wa['male_beneficiaries'] / $wa['total'], 2); ?></td>
-                                <td><?php echo round($wa['female_beneficiaries'] / $wa['total'], 2); ?></td>
+                                <th><small>Weighted Average</small></th>
+                                <td class="text-center"><small><?php echo $total; ?></small></td>
+                                <td class="text-center"><?php echo number_format(round($house_holds / $total, 2), 2); ?></td>
+                                <td class="text-center"><?php echo number_format(round($total_beneficiaries / $total, 2), 2); ?></td>
+                                <td class="text-center"><?php echo number_format(round($male_beneficiaries / $total, 2), 2); ?></td>
+                                <td class="text-center"><?php echo number_format(round($female_beneficiaries / $total, 2), 2); ?></td>
                             </tr>
                         </tfoot>
-
                     </table>
+
                 </div>
             </div>
         </div>
     </div>
-
     <div class="col-md-6">
         <div class="card shadow-sm">
             <div class="card-body">
-                <div id="components_beneficiaries_chart"></div>
-                <script>
-                    Highcharts.chart('region_beneficiaries_chart', {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Beneficiaries Components Wise'
-                        },
-                        xAxis: {
-                            categories: <?php echo json_encode($categories); ?>,
-                            title: {
-                                text: 'Components'
-                            }
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'WP Kg/m<sup>3</sup> (Avg.)'
-                            }
-                        },
-                        tooltip: {
-                            shared: true,
-                            valueSuffix: ''
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2,
-                                borderWidth: 0
-                            }
-                        },
-                        series: [{
-                            name: 'House Holds',
-                            data: <?php echo json_encode($house_holds, JSON_NUMERIC_CHECK); ?>
-                        }, {
-                            name: 'Total Beneficiaries',
-                            data: <?php echo json_encode($total_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                        }, {
-                            name: 'Male Beneficiaries',
-                            data: <?php echo json_encode($male_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                        }, {
-                            name: 'Female Beneficiaries',
-                            data: <?php echo json_encode($female_beneficiaries, JSON_NUMERIC_CHECK); ?>
-                        }]
-                    });
-                </script>
+                <div id="beneficiaries_summary" style="height:280px">
+                </div>
+            </div>
+        </div>
+        <script>
+            Highcharts.chart('beneficiaries_summary', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Beneficiaries Summary'
+                },
+                xAxis: {
+                    categories: ["House Hold (Avg)", "Beneficiaries (Avg)", "Male (Avg)", "Female (Avg)"],
+                },
+                yAxis: {
+                    title: {
+                        text: 'Weighted Average'
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        grouping: true,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.2f}'
+                        }
+                    }
+                },
+                series: [{
+                        name: 'Weighted Average',
+                        data: [<?php echo number_format(round($house_holds / $total, 2), 2); ?>,
+                            <?php echo number_format(round($total_beneficiaries / $total, 2), 2); ?>,
+                            <?php echo number_format(round($male_beneficiaries / $total, 2), 2); ?>,
+                            <?php echo number_format(round($female_beneficiaries / $total, 2), 2); ?>
+                        ]
+                    }
+
+                ]
+            });
+        </script>
+    </div>
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="Region_wise_beneficiaries" style="height: 400px;"></div>
             </div>
         </div>
     </div>
+
+    <script>
+        Highcharts.chart('Region_wise_beneficiaries', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Beneficiaries Region Wise'
+            },
+            xAxis: {
+                categories: <?php echo json_encode($categories); ?>,
+                crosshair: true
+            },
+            yAxis: {
+                title: {
+                    text: 'Average'
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' Avg'
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y}',
+                        crop: false, // Don't hide labels outside the plot area
+                        overflow: 'none', // Prevent hiding when overflowing
+                        allowOverlap: true,
+                        rotation: -90,
+                        // style: {
+                        //     fontSize: '9px' // Change to your desired font size
+                        // }
+
+                    },
+
+                },
+            },
+            series: [{
+                name: 'House Hold',
+                data: <?php echo json_encode($hhData); ?>,
+                color: '#ff7b7b'
+            }, {
+                name: 'Beneficiaries',
+                data: <?php echo json_encode($tbData); ?>,
+                color: '#7bff7b'
+            }, {
+                name: 'Male',
+                data: <?php echo json_encode($mbData); ?>,
+                color: '#00A2D6',
+            }, {
+                name: 'Female',
+                data: <?php echo json_encode($fbDate); ?>,
+                color: '#FF55D4'
+            }]
+        });
+    </script>
 </div>
 
 
