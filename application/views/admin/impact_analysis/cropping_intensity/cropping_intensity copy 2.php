@@ -50,11 +50,11 @@ $components = $components_result->result();
                     <table class="table table-bordered table-hover mb-0" id="table_1" style="font-size: 12px;">
                         <thead class="thead-light">
                             <tr>
-                                <th style="display: none; text-align:center" colspan="6">Average Increase in Cropping Intensity</th>
+                                <th style="display: none; text-align:center" colspan="5">Average Increase in Cropping Intensity</th>
                             </tr>
                             <tr>
                                 <th>Regions</th>
-                                <th class="text-center"><small>Total</small></th>
+                                <!-- <th class="text-center"><small>Total</small></th> -->
                                 <th class="text-center">Before <small>Avg</small></th>
                                 <th class="text-center">After <small>Avg</small></th>
                                 <th class="text-center">Increase <small>Avg</small></th>
@@ -65,12 +65,12 @@ $components = $components_result->result();
                             <?php
                             foreach ($regions as $region) {
                                 $query = "SELECT COUNT(*) as total,
-                                ROUND(AVG(crop_intensity_before) , 2) AS `before`,
-                                ROUND(AVG(crop_intensity_after) , 2) AS `after`,
-                                ROUND(((ROUND(AVG(crop_intensity_after) , 2) -
-                                ROUND(AVG(crop_intensity_before) , 2))/ROUND(AVG(crop_intensity_before) , 2)) * 100, 2) AS per_increase
+                                ROUND(AVG(crop_intensity_before) / 2.471, 2) AS `before`,
+                                ROUND(AVG(crop_intensity_after) / 2.471, 2) AS `after`,
+                                ROUND(((ROUND(AVG(crop_intensity_after) / 2.471, 2) -
+                                ROUND(AVG(crop_intensity_before) / 2.471, 2))/ROUND(AVG(crop_intensity_before) / 2.471, 2)) * 100, 2) AS per_increase
                                 FROM `impact_crop_intensity`
-                                WHERE `crop_intensity_before` IS NOT NULL AND `crop_intensity_after` IS NOT NULL AND  region = ? ";
+                                WHERE region = ? ";
                                 $result = $this->db->query($query, array($region->region));
                                 $row = $result->row();
 
@@ -90,7 +90,7 @@ $components = $components_result->result();
                             ?>
                                 <tr>
                                     <td><?php echo ucfirst($region->region) ?></td>
-                                    <td class="text-center"><small><?php echo $row->total; ?></small></td>
+                                    <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
                                     <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
                                     <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
                                     <td class="text-center"><?php echo number_format($increase, 2); ?></td>
@@ -101,7 +101,7 @@ $components = $components_result->result();
                         <tfoot class="font-weight-bold">
                             <tr>
                                 <th><small>Weighted Average</small></th>
-                                <td class="text-center"><small><?php echo $total; ?></small></td>
+                                <!-- <td class="text-center"><small><?php echo $total; ?></small></td> -->
                                 <td class="text-center"><?php echo number_format(round($befor_weight / $total, 2), 2); ?></td>
                                 <td class="text-center"><?php echo number_format(round($after_weight / $total, 2), 2); ?></td>
                                 <td class="text-center"><?php echo number_format(round($increase_weight / $total, 2), 2); ?></td>
@@ -295,19 +295,19 @@ $components = $components_result->result();
                             <tr>
                                 <th rowspan="2" class="align-middle">Regions</th>
                                 <?php foreach ($components as $component) { ?>
-                                    <th colspan="5" class="text-center">Component <?php echo $component->component; ?></th>
+                                    <th colspan="4" class="text-center">Component <?php echo $component->component; ?></th>
                                 <?php } ?>
-                                <th colspan="5" class="text-center">Overall Average</th>
+                                <th colspan="4" class="text-center">Overall Average</th>
                             </tr>
                             <tr>
                                 <?php foreach ($components as $component) { ?>
-                                    <th class="text-center"><small>Total</small></th>
+                                    <!-- <th class="text-center"><small>Total</small></th> -->
                                     <th class="text-center">Before <small>Avg</small></th>
                                     <th class="text-center">After <small>Avg</small></th>
                                     <th class="text-center">Increase <small>Avg</small></th>
                                     <th class="text-center">Increase <small>(%)</small></th>
                                 <?php } ?>
-                                <th class="text-center"><small>Total</small></th>
+                                <!-- <th class="text-center"><small>Total</small></th> -->
                                 <th class="text-center">Before <small>Avg</small></th>
                                 <th class="text-center">After <small>Avg</small></th>
                                 <th class="text-center">Increase <small>Avg</small></th>
@@ -337,15 +337,15 @@ $components = $components_result->result();
 
                                         $query = "SELECT 
                                         COUNT(*) as total,
-                                        ROUND(AVG(crop_intensity_before ), 2) AS `before`,
-                                        ROUND(AVG(crop_intensity_after ), 2) AS `after`,
-                                        ROUND(AVG(crop_intensity_after ) - AVG(crop_intensity_before ), 2) AS `increase`,
+                                        ROUND(AVG(crop_intensity_before / 2.471), 2) AS `before`,
+                                        ROUND(AVG(crop_intensity_after / 2.471), 2) AS `after`,
+                                        ROUND(AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471), 2) AS `increase`,
                                         ROUND(
-                                            (AVG(crop_intensity_after ) - AVG(crop_intensity_before )) / 
-                                            AVG(crop_intensity_before ) * 100, 
+                                            (AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471)) / 
+                                            AVG(crop_intensity_before / 2.471) * 100, 
                                         2) AS `per_increase`
                                         FROM `impact_crop_intensity`  
-                                        WHERE `crop_intensity_before` IS NOT NULL AND `crop_intensity_after` IS NOT NULL AND  component = ? AND region = ?";
+                                        WHERE component = ? AND region = ?";
                                         $result = $this->db->query($query, array($component->component, $region->region));
                                         $row = $result->row();
                                         // Accumulate region totals
@@ -371,7 +371,7 @@ $components = $components_result->result();
                                         $chart_data[$component->component]['per_increase'][] = isset($row->per_increase) ? $row->per_increase : 0;
 
                                     ?>
-                                        <td class="text-center"><small><?php echo $row->total; ?></small></td>
+                                        <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
                                         <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
                                         <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
                                         <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
@@ -382,15 +382,15 @@ $components = $components_result->result();
                                     // Get overall averages for the region
                                     $query = "SELECT 
                                     COUNT(*) as total,
-                                    ROUND(AVG(crop_intensity_before ), 2) AS `before`,
-                                    ROUND(AVG(crop_intensity_after ), 2) AS `after`,
-                                    ROUND(AVG(crop_intensity_after ) - AVG(crop_intensity_before ), 2) AS `increase`,
+                                    ROUND(AVG(crop_intensity_before / 2.471), 2) AS `before`,
+                                    ROUND(AVG(crop_intensity_after / 2.471), 2) AS `after`,
+                                    ROUND(AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471), 2) AS `increase`,
                                     ROUND(
-                                        (AVG(crop_intensity_after ) - AVG(crop_intensity_before )) / 
-                                        AVG(crop_intensity_before ) * 100, 
+                                        (AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471)) / 
+                                        AVG(crop_intensity_before / 2.471) * 100, 
                                     2) AS `per_increase`
                                     FROM `impact_crop_intensity`  
-                                    WHERE `crop_intensity_before` IS NOT NULL AND `crop_intensity_after` IS NOT NULL AND  region = ?";
+                                    WHERE region = ?";
                                     $result = $this->db->query($query, array($region->region));
                                     $row = $result->row();
 
@@ -414,7 +414,7 @@ $components = $components_result->result();
                                     $chart_data['Over All']['increase'][] = isset($row->increase) ? $row->increase : 0;
                                     $chart_data['Over All']['per_increase'][] = isset($row->per_increase) ? $row->per_increase : 0;
                                     ?>
-                                    <td class="text-center"><small><?php echo $row->total; ?></small></td>
+                                    <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
                                     <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
                                     <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
                                     <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
@@ -434,7 +434,7 @@ $components = $components_result->result();
                                     $chart_data[$component->component]['increase'][] = $component->total != 0 ? round($component->increase / $component->total, 2) : 0;
                                     $chart_data[$component->component]['per_increase'][] = $component->total != 0 ? round($component->per_increase / $component->total, 2) : 0;
                                 ?>
-                                    <td class="text-center"><small><?php echo $component->total; ?></small></td>
+                                    <!-- <td class="text-center"><small><?php echo $component->total; ?></small></td> -->
                                     <td class="text-center"><?php echo $component->total != 0 ? round($component->before / $component->total, 2) : '0.00'; ?></td>
                                     <td class="text-center"><?php echo $component->total != 0 ? round($component->after / $component->total, 2) : '0.00'; ?></td>
                                     <td class="text-center"><?php echo $component->total != 0 ? round($component->increase / $component->total, 2) : '0.00'; ?></td>
@@ -446,7 +446,7 @@ $components = $components_result->result();
                                 $chart_data['Over All']['increase'][] = $total != 0 ? round($increase / $total, 2) : 0;
                                 $chart_data['Over All']['per_increase'][] = $total != 0 ? round($per_increase / $total, 2) : 0;
                                 ?>
-                                <td class="text-center"><small><?php echo $total; ?></small></td>
+                                <!-- <td class="text-center"><small><?php echo $total; ?></small></td> -->
                                 <td class="text-center"><?php echo $total != 0 ? round($before / $total, 2) : '0.00'; ?></td>
                                 <td class="text-center"><?php echo $total != 0 ? round($after / $total, 2) : '0.00'; ?></td>
                                 <td class="text-center"><?php echo $total != 0 ? round($increase / $total, 2) : '0.00'; ?></td>
@@ -554,12 +554,12 @@ $components = $components_result->result();
                             <tr>
                                 <th rowspan="2" class="align-middle">Regions</th>
                                 <?php foreach ($sub_components as $sub_component) { ?>
-                                    <th colspan="5" class="text-center">Sub Component <?php echo $sub_component->sub_component; ?></th>
+                                    <th colspan="4" class="text-center">Sub Component <?php echo $sub_component->sub_component; ?></th>
                                 <?php } ?>
                             </tr>
                             <tr>
                                 <?php foreach ($sub_components as $sub_component) { ?>
-                                    <th class="text-center"><small>Total</small></th>
+                                    <!-- <th class="text-center"><small>Total</small></th> -->
                                     <th class="text-center">Before <small>Avg</small></th>
                                     <th class="text-center">After <small>Avg</small></th>
                                     <th class="text-center">Increase <small>Avg</small></th>
@@ -588,15 +588,15 @@ $components = $components_result->result();
                                     foreach ($sub_components as $sub_component) {
                                         $query = "SELECT 
                                         COUNT(*) as total,
-                                        ROUND(AVG(crop_intensity_before ), 2) AS `before`,
-                                        ROUND(AVG(crop_intensity_after ), 2) AS `after`,
-                                        ROUND(AVG(crop_intensity_after ) - AVG(crop_intensity_before ), 2) AS `increase`,
+                                        ROUND(AVG(crop_intensity_before / 2.471), 2) AS `before`,
+                                        ROUND(AVG(crop_intensity_after / 2.471), 2) AS `after`,
+                                        ROUND(AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471), 2) AS `increase`,
                                         ROUND(
-                                            (AVG(crop_intensity_after ) - AVG(crop_intensity_before )) / 
-                                            AVG(crop_intensity_before ) * 100, 
+                                            (AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471)) / 
+                                            AVG(crop_intensity_before / 2.471) * 100, 
                                         2) AS `per_increase`
                                         FROM `impact_crop_intensity`  
-                                        WHERE `crop_intensity_before` IS NOT NULL AND `crop_intensity_after` IS NOT NULL AND  sub_component = ? AND region = ?";
+                                        WHERE sub_component = ? AND region = ?";
                                         $result = $this->db->query($query, array($sub_component->sub_component, $region->region));
                                         $row = $result->row();
                                         // Accumulate region totals
@@ -606,7 +606,7 @@ $components = $components_result->result();
                                         $sub_component->increase += $row->increase * $row->total;
                                         $sub_component->per_increase += $row->per_increase * $row->total;
                                     ?>
-                                        <td class="text-center"><small><?php echo $row->total; ?></small></td>
+                                        <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
                                         <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
                                         <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
                                         <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
@@ -622,9 +622,6 @@ $components = $components_result->result();
                                 <th>Weighted Average</th>
 
                                 <?php foreach ($sub_components as $sub_component) { ?>
-                                    <td class="text-center">
-                                        <?php echo  $sub_component->total; ?>
-                                    </td>
                                     <td class="text-center">
                                         <?php echo $sub_component->total != 0 ? round($sub_component->before / $sub_component->total, 2) : '0.00'; ?>
                                     </td>
@@ -672,12 +669,12 @@ $components = $components_result->result();
                             <tr>
                                 <th rowspan="2" class="align-middle">Regions</th>
                                 <?php foreach ($categorys as $category) { ?>
-                                    <th colspan="5" class="text-center">Categories <?php echo $category->category; ?></th>
+                                    <th colspan="4" class="text-center">Categories <?php echo $category->category; ?></th>
                                 <?php } ?>
                             </tr>
                             <tr>
                                 <?php foreach ($categorys as $category) { ?>
-                                    <th class="text-center"><small>Total</small></th>
+                                    <!-- <th class="text-center"><small>Total</small></th> -->
                                     <th class="text-center">Before <small>Avg</small></th>
                                     <th class="text-center">After <small>Avg</small></th>
                                     <th class="text-center">Increase <small>Avg</small></th>
@@ -702,15 +699,15 @@ $components = $components_result->result();
                                     foreach ($categorys as $category) {
                                         $query = "SELECT 
                                         COUNT(*) as total,
-                                        ROUND(AVG(crop_intensity_before ), 2) AS `before`,
-                                        ROUND(AVG(crop_intensity_after ), 2) AS `after`,
-                                        ROUND(AVG(crop_intensity_after ) - AVG(crop_intensity_before ), 2) AS `increase`,
+                                        ROUND(AVG(crop_intensity_before / 2.471), 2) AS `before`,
+                                        ROUND(AVG(crop_intensity_after / 2.471), 2) AS `after`,
+                                        ROUND(AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471), 2) AS `increase`,
                                         ROUND(
-                                            (AVG(crop_intensity_after ) - AVG(crop_intensity_before )) / 
-                                            AVG(crop_intensity_before ) * 100, 
+                                            (AVG(crop_intensity_after / 2.471) - AVG(crop_intensity_before / 2.471)) / 
+                                            AVG(crop_intensity_before / 2.471) * 100, 
                                         2) AS `per_increase`
                                         FROM `impact_crop_intensity`  
-                                        WHERE `crop_intensity_before` IS NOT NULL AND `crop_intensity_after` IS NOT NULL AND  category = ? AND region = ?";
+                                        WHERE category = ? AND region = ?";
                                         $result = $this->db->query($query, array($category->category, $region->region));
                                         $row = $result->row();
                                         // Accumulate region totals
@@ -720,7 +717,7 @@ $components = $components_result->result();
                                         $category->increase += $row->increase * $row->total;
                                         $category->per_increase += $row->per_increase * $row->total;
                                     ?>
-                                        <td class="text-center"><small><?php echo $row->total; ?></small></td>
+                                        <!-- <td class="text-center"><small><?php echo $row->total; ?></small></td> -->
                                         <td class="text-center"><?php echo number_format($row->before, 2); ?></td>
                                         <td class="text-center"><?php echo number_format($row->after, 2); ?></td>
                                         <td class="text-center"><?php echo number_format($row->increase, 2); ?></td>
@@ -735,9 +732,6 @@ $components = $components_result->result();
                                 <th>Weighted Average</th>
 
                                 <?php foreach ($categorys as $category) { ?>
-                                    <td class="text-center">
-                                        <?php echo $category->total; ?>
-                                    </td>
                                     <td class="text-center">
                                         <?php echo $category->total != 0 ? round($category->before / $category->total, 2) : '0.00'; ?>
                                     </td>

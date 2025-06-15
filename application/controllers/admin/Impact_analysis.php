@@ -163,24 +163,30 @@ class Impact_analysis extends CI_Controller
 
          case 'Cropping_Intensity_Raw':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category, 
-                  `rabi_crop_area_acres_before`,
-                  `zaid_rabi_crop_area_acres_before`,
-                  `kharif_crop_area_acres_before`,
-                  `zaid_kharif_crop_area_acres_before`,
-                  `sugarcane_crop_area_acres_before`,
-                  `area_intercropped_sugarcane_acres_before`,
-                  `orchard_area_acres_before`,
-                  `area_intercropped_orchards_acres_before`,
-                  `total_cultivable_command_area_acres_before`,
-                  `rabi_crop_area_acres_after`,
-                  `zaid_rabi_crop_area_acres_before`,
-                  `kharif_crop_area_acres_after`,
-                  `zaid_kharif_crop_area_acres_after`,
-                  `sugarcane_crop_area_acres_after`,
-                  `area_intercropped_sugarcane_acres_after`,
-                  `orchard_area_acres_after`,
-                  `area_intercropped_orchards_acres_after`,
-                  `total_cultivable_command_area_acres_after`  
+             total_cultivable_command_area_acres_before, 
+             total_cultivable_command_area_acres_after,
+                  rabi_crop_area_acres_before,
+                  rabi_crop_area_acres_after,
+                  zaid_rabi_crop_area_acres_before,
+                  zaid_rabi_crop_area_acres_after,
+                  kharif_crop_area_acres_before,
+                  kharif_crop_area_acres_after,
+                  zaid_kharif_crop_area_acres_before,
+                  zaid_kharif_crop_area_acres_after,
+                  sugarcane_crop_area_acres_before,
+                  sugarcane_crop_area_acres_after,
+                  area_intercropped_sugarcane_acres_before,
+                  area_intercropped_sugarcane_acres_after,
+                  orchard_area_acres_before,
+                  orchard_area_acres_after,
+                  area_intercropped_orchards_acres_before,
+                  area_intercropped_orchards_acres_after,
+                  area_left_fallow_area_rabi_season_acres_before,
+                  area_left_fallow_area_rabi_season_acres_after,
+                  area_left_fallow_area_kharif_season_acres_before,
+                  area_left_fallow_area_kharif_season_acres_after,
+                  area_any_other_before,
+                  area_any_other_after
                   FROM `impact_surveys` 
                   ORDER BY id ASC";
             break;
@@ -202,6 +208,7 @@ class Impact_analysis extends CI_Controller
 
          case 'Cropping_Pattern':
             $query = "SELECT id, impact_survery_id, region, district, component, sub_component, category,
+           
                      wheat_cp_before, wheat_cp_after,
                      maize_cp_before, maize_cp_after,
                      maize_hybrid_cp_before, maize_hybrid_cp_after,

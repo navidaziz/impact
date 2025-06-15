@@ -562,14 +562,14 @@ $components = $this->db->query($query)->result();
     <div class="col-md-12" style="margin-bottom: 10px;">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
-                <strong>Region and Component Wise Water Losses and Savings </strong>
+                <strong>Region and Component Wise Water Productivity (Wheat & Maize) </strong>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-bordered table_medium" id="table_5">
                         <thead>
                             <tr style="display: none;">
-                                <th colspan="<?php echo ((1 + (count($components) * 5)) + 5); ?>">Region and Component Wise Water Losses and Savings</th>
+                                <th colspan="<?php echo ((1 + (count($components) * 5)) + 5); ?>">Region and Component Wise Water Productivity (Wheat & Maize)</th>
                             </tr>
                             <tr>
                                 <th rowspan="2">Regions</th>
